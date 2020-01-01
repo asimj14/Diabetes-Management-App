@@ -36,6 +36,5 @@
             android:layout_span="1"
             android:src="@drawable/ic_delete" />
 
-
     </RelativeLayout>
 </RelativeLayout>

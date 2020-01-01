@@ -12,6 +12,7 @@ import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -47,6 +48,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+        updateNavHeader();
 
         //hooks
         drawerLayout = findViewById(R.id.drawerlayout);
@@ -56,15 +58,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
 
         editTextGlucoseValue = findViewById(R.id.editTextGlucoseValue);
         editTextTime = findViewById(R.id.editTextTime);
-        //editTextTime.setOnClickListener( this );
 
-
-//        if(getIntent().getBundleExtra("userdata")!=null) {
-//
-//            Bundle bundle = getIntent().getBundleExtra("userdata");
-//            editTextGlucoseValue.setText(bundle.getString("glucoseValue"));
-//
-//        }
 
         //creating methods
         findId();
@@ -264,9 +258,15 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
         });
     }
 
-    public void updateNavHeader() {
-        Intent intent = getIntent();
-        userName = intent.getStringExtra("USERNAME");
+    public void updateNavHeader(){
+
+        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail","");
+
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
+        String userName = preferences1.getString("username","");
+
+
         navigationview = findViewById(R.id.navigationview);
         View headerView = navigationview.getHeaderView(0);
         TextView navUserName = headerView.findViewById(R.id.textViewUsername);
@@ -275,7 +275,6 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
         //updating textfields
         navUserName.setText(userName);
         navUserEmail.setText(userEmail);
-
     }
 
     public void clickMenu(View view) {

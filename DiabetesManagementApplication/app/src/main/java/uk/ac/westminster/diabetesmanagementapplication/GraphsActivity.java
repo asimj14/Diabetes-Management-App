@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,7 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphs);
+        updateNavHeader();
 
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationview = findViewById(R.id.navigationview);
@@ -80,9 +82,15 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
             }
         });
     }
-    public void updateNavHeader() {
-        Intent intent = getIntent();
-        userName = intent.getStringExtra("USERNAME");
+    public void updateNavHeader(){
+
+        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail","");
+
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
+        String userName = preferences1.getString("username","");
+
+
         navigationview = findViewById(R.id.navigationview);
         View headerView = navigationview.getHeaderView(0);
         TextView navUserName = headerView.findViewById(R.id.textViewUsername);
@@ -92,6 +100,7 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         navUserName.setText(userName);
         navUserEmail.setText(userEmail);
     }
+
     public void clickMenu(View view) {
         //Open Drawer
         HomeActivity.openDrawer(drawerLayout);

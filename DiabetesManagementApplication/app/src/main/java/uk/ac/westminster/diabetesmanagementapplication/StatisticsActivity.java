@@ -9,11 +9,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +33,7 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+        updateNavHeader();
 
 
         drawerLayout = findViewById(R.id.drawerlayout);
@@ -81,11 +84,18 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
                 return false;
             }
         });
+
     }
 
     public void updateNavHeader(){
-        Intent intent = getIntent();
-        userName = intent.getStringExtra("USERNAME");
+
+        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail","");
+
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
+        String userName = preferences1.getString("username","");
+
+
         navigationview = findViewById(R.id.navigationview);
         View headerView = navigationview.getHeaderView(0);
         TextView navUserName = headerView.findViewById(R.id.textViewUsername);
@@ -94,7 +104,6 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
         //updating textfields
         navUserName.setText(userName);
         navUserEmail.setText(userEmail);
-
     }
 
     @Override

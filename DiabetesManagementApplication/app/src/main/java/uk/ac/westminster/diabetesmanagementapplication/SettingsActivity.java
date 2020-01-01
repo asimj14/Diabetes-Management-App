@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        updateNavHeader();
 
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationview = findViewById(R.id.navigationview);
@@ -82,9 +84,15 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         });
     }
 
-    public void updateNavHeader() {
-        Intent intent = getIntent();
-        userName = intent.getStringExtra("USERNAME");
+    public void updateNavHeader(){
+
+        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail","");
+
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
+        String userName = preferences1.getString("username","");
+
+
         navigationview = findViewById(R.id.navigationview);
         View headerView = navigationview.getHeaderView(0);
         TextView navUserName = headerView.findViewById(R.id.textViewUsername);

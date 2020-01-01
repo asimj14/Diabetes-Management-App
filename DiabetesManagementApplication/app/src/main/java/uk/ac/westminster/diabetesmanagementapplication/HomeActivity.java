@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.CharArrayBuffer;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -42,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     String userName, userEmail;
 
     DBHelper db;
-    SQLiteDatabase sqLiteDatabse;
+    SQLiteDatabase sqLiteDatabase;
     ListView listView;
     String[] glucose;
     String[] recordDate;
@@ -117,8 +118,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void displayAllData() {
-        sqLiteDatabse = db.getWritableDatabase();
-        Cursor cursor = sqLiteDatabse.rawQuery("SELECT * FROM glucose", null);
+        sqLiteDatabase = db.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose", null);
         if (cursor.getCount() > 0) {
             id = new int[cursor.getCount()];
             glucose = new String[cursor.getCount()];
@@ -190,8 +191,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sqLiteDatabse = db.getReadableDatabase();
-                    long recd = sqLiteDatabse.delete("glucose","id="+id[position],null);
+                    sqLiteDatabase = db.getReadableDatabase();
+                    long recd = sqLiteDatabase.delete("glucose","id="+id[position],null);
                     if(recd!=-1){
                         Toast.makeText(HomeActivity.this, "Reading deleted successfully!", Toast.LENGTH_SHORT).show();
                         displayAllData();
@@ -240,11 +241,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void updateNavHeader(){
-        if(getIntent().getBundleExtra("userdetails")!=null){
 
-            Bundle bundle = getIntent().getBundleExtra("userdetails");
-            userEmail = bundle.getString("email");
-        }
+        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail","");
+
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
+        String userName = preferences1.getString("username","");
+
 
         navigationview = findViewById(R.id.navigationview);
         View headerView = navigationview.getHeaderView(0);
@@ -252,9 +255,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView navUserEmail = headerView.findViewById(R.id.textViewEmail);
         ImageView navUserPhoto = headerView.findViewById(R.id.imageViewUserPhoto);
         //updating textfields
-        //navUserName.setText(userName);
+        navUserName.setText(userName);
         navUserEmail.setText(userEmail);
-        Toast.makeText(this, "User:"+userEmail, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "User Email:"+userEmail+" User Name:"+userName, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -272,6 +275,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);//so that only our app can read this preference
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("remember","false");
+                editor.apply();
+
                 //finish activity
                 activity.finishAffinity();
                 //exit app

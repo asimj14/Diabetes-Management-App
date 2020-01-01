@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Please fill all the required fields!", Toast.LENGTH_SHORT).show();
                 } else {
                     if (myPass.equals(myRepass)) {
-                        Boolean validUserResult = db.checkUserEmail(myUser);
+                        Boolean validUserResult = db.checkUserEmail(myEmail);
                         if (validUserResult == false) {
                             //No record found for that particular user so we can register
                             Boolean result = null;
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } else {
                             //user already exists
-                            Toast.makeText(MainActivity.this, "User already exists! \n Please Sign in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "User already exists! \n Please Sign in with a valid email", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
