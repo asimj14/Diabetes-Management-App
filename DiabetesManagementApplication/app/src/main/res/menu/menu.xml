@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:title="Records"
+        android:icon="@drawable/ic_dashboard"/>
+    <item
+        android:id="@+id/statistics"
+        android:title="Statistics"
+        android:icon="@drawable/ic_leaderboard"/>
+
+    <item
+        android:id="@+id/add"
+        android:title="Add"
+        android:icon="@drawable/ic_add_b"/>
+    <item
+        android:id="@+id/graphs"
+        android:title="Graphs"
+        android:icon="@drawable/ic_graph"/>
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings"/>
+
+</menu>

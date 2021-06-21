@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DiabetesManagementApplication</string>
+    <string name="forgorPasswordLink">
+        <a href="">Forgot Password?</a>
+    </string>
+
+    <string name="signUpLink">
+        <a href="">Sign up</a>
+    </string>
+
+    <string name="navigation_open">Open Navigator Drawer</string>
+    <string name="navigation_close">Close Navigator Drawer</string>
+    <string name="app_name1">Diabetes Management App</string>
+    <string name="logo_name">myDMA</string>
+    <string name="slogan_name">We will help you manage your Diabetes in a better way!</string>
+    <string name="powered_by">Powered By: Muhammad Asim Javed</string>
+</resources>
