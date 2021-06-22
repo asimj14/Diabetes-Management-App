@@ -8,30 +8,34 @@
         android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="10dp"
-        android:text="ListViewSQLite"/>
+        android:layout_span="2"
+        android:text="ListViewSQLite"
+        android:textAlignment="center" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/edit_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit"
-        android:layout_margin="10dp"
-        android:layout_alignParentEnd="true"/>
+        <ImageView
+            android:id="@+id/edit_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:layout_span="1"
+            android:src="@drawable/ic_edit" />
 
-    <ImageView
-        android:id="@+id/delete_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_delete"
-        android:layout_margin="10dp"/>
+        <ImageView
+            android:id="@+id/delete_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_span="1"
+            android:src="@drawable/ic_delete" />
 
 
-
-</RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

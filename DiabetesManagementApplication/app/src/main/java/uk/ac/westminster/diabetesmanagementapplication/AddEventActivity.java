@@ -124,7 +124,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                         editTextTime.setText(hourOfDay + ":" + minute);
 
                     }
-                }, mHour, mMinutes, false);
+                }, mHour, mMinutes, true);
                 timePickerDialog.show();
             }
         });
@@ -263,7 +263,6 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
             }
         });
     }
-
 
     public void updateNavHeader() {
         Intent intent = getIntent();

@@ -169,7 +169,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             edit = convertView.findViewById(R.id.edit_data);
             delete = convertView.findViewById(R.id.delete_data);
-            textView.setText("BG: "+glucose[position]+" Date: "+recordDate[position]+" Time: "+recordTime[position]);
+            textView.setText("BG: "+glucose[position]+"\n Date: "+recordDate[position]+"\n Time: "+recordTime[position]);
 
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override

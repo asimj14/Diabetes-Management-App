@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         signUp = (TextView)findViewById(R.id.signUp);
 
 
-        //forgot password link
+        //forgot password link to
         forgotPassword.setMovementMethod(LinkMovementMethod.getInstance());
         //signUp.setMovementMethod(LinkMovementMethod.getInstance());
         signUp.setOnClickListener(new View.OnClickListener() {
