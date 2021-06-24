@@ -136,7 +136,11 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
                 //finish activity
                 activity.finishAffinity();
                 //exit app
-                System.exit(0);
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+                //System.exit(0);
+                Toast.makeText(StatisticsActivity.this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
+
             }
         });
         //negative No

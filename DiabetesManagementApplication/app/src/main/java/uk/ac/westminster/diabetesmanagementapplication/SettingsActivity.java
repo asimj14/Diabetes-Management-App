@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -129,7 +130,11 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
                 //finish activity
                 activity.finishAffinity();
                 //exit app
-                System.exit(0);
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+                //System.exit(0);
+                Toast.makeText(SettingsActivity.this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
+
             }
         });
         //negative No

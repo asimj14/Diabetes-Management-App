@@ -18,9 +18,7 @@
         app:menu="@menu/sidemenu"/>
 
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <RelativeLayout
             android:id="@+id/relativelayout"
             android:layout_width="match_parent"
             android:layout_height="725dp"
@@ -49,6 +47,13 @@
                 android:textColor="@color/black"
                 android:textSize="35sp"
                 android:textStyle="bold"/>
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph"
+                android:layout_width="match_parent"
+                android:layout_height="451dp"
+                android:layout_below="@+id/labelGraphs" />
+
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigator"

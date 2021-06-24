@@ -28,6 +28,8 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/input_bg"
         android:hint="Enter Full Name"
+        android:drawableLeft="@drawable/ic_person"
+        android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -43,6 +45,8 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/input_bg"
         android:hint="Enter Email"
+        android:drawableLeft="@drawable/ic_alt_email"
+        android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -58,6 +62,8 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/input_bg"
         android:hint="Select Date of Birth"
+        android:drawableLeft="@drawable/ic_date"
+        android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -75,6 +81,8 @@
         app:passwordToggleTint="@color/purple_500"
         android:background="@drawable/input_bg"
         android:hint="Enter Password"
+        android:drawableLeft="@drawable/ic_lock"
+        android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -93,6 +101,8 @@
         app:passwordToggleTint="@color/purple_500"
         android:background="@drawable/input_bg"
         android:hint="Renter Password"
+        android:drawableLeft="@drawable/ic_check"
+        android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -117,7 +127,6 @@
         android:layout_below="@+id/textViewGender"
         android:layout_marginTop="0dp">
 
-
         <RadioButton
             android:id="@+id/radiobuttonMale"
             android:layout_width="123dp"
@@ -134,9 +143,7 @@
             android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/radiobuttonMale"
             android:text="Female"
-            android:textSize="15dp"
-
-            />
+            android:textSize="15dp"/>
 
     </RadioGroup>
 
@@ -149,21 +156,21 @@
         android:backgroundTint="@android:color/holo_blue_dark"
         android:text="Register"
         android:textAllCaps="false"
-        android:textSize="15dp"
-        app:cornerRadius="45dp" />
+        android:textSize="13dp"
+        app:cornerRadius="45dp"/>
 
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnSignUp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="@android:color/white"
         android:text="Already an existing user?\n Sign in"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_blue_light"
-        android:textSize="12dp"
-        app:cornerRadius="45dp" />
+        android:textSize="13dp"
+        app:cornerRadius="45dp"/>
 
 
 </RelativeLayout>

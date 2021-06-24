@@ -296,7 +296,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 //finish activity
                 activity.finishAffinity();
                 //exit app
-                System.exit(0);
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+                //System.exit(0);
+                Toast.makeText(HomeActivity.this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
             }
         });
         //negative No
