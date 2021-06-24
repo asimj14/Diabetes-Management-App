@@ -50,6 +50,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_add_event);
         updateNavHeader();
 
+
         //hooks
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationview = findViewById(R.id.navigationview);
@@ -59,10 +60,12 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
         editTextGlucoseValue = findViewById(R.id.editTextGlucoseValue);
         editTextTime = findViewById(R.id.editTextTime);
 
+        SharedPreferences preferences3 = getSharedPreferences("useriddetails",MODE_PRIVATE);
+        Integer userid = preferences3.getInt("userid",0);
 
         //creating methods
         findId();
-        getData();
+        getData(userid);
         clear();
         editData();
 
@@ -115,7 +118,15 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                        editTextTime.setText(hourOfDay + ":" + minute);
+                        if(minute<10 && hourOfDay<10){
+                            editTextTime.setText(0+hourOfDay + ":" + 0+minute);
+                        }else if(minute> 10 && hourOfDay<10){
+                            editTextTime.setText(0+hourOfDay + ":" +minute);
+                        }else if(minute< 10 && hourOfDay>10){
+                            editTextTime.setText(hourOfDay + ":" +0+minute);
+                        }else{
+                            editTextTime.setText(hourOfDay + ":" + minute);
+                        }
 
                     }
                 }, mHour, mMinutes, true);
@@ -200,25 +211,26 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
 
     }
 
-    private void getData() {
+    private void getData(Integer userID) {
         //Submit Data
         submitDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("glucoseValue", editTextGlucoseValue.getText().toString());
                 contentValues.put("recordDate", editTextDate.getText().toString());
                 contentValues.put("recordTime", editTextTime.getText().toString());
+                contentValues.put("patientId",userID);
 
                 sqLiteDatabase = db.getWritableDatabase();
-                Long recid = sqLiteDatabase.insert("glucose", null, contentValues);
+                Long recid = sqLiteDatabase.insert("glucose",null, contentValues);
                 if (recid != null) {
-                    Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!"+userID, Toast.LENGTH_SHORT).show();
                     clear();
                 } else {
                     Toast.makeText(AddEventActivity.this, "Error! Please try again!", Toast.LENGTH_SHORT).show();
-
-
                 }
 
             }

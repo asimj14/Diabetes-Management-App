@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 String userEmail = email.getText().toString();
                 String userPass = password.getText().toString();
                 String userName="";
+                Integer userid=0;
 
 
                 //Toast.makeText(LoginActivity.this, "Details are:"+user+pass, Toast.LENGTH_SHORT).show();
@@ -87,18 +88,11 @@ public class LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     if(result==true){
-
-//                        sqLiteDatabase = db.getWritableDatabase();
-//                        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM users WHERE email=?", new String[]{userEmail});
-//
-//                        if (cursor.getCount() > 0) {
-//
-//                            userEmail = cursor.getString(1);
-//                            userName = cursor.getString(2);
                              getUserDetails(userEmail);
 
                             SharedPreferences preferences = getSharedPreferences("userdetails",MODE_PRIVATE);//so that only our app can read this preference
                             SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("userid", String.valueOf(userid));
                             editor.putString("useremail",userEmail);
                             editor.putString("username", userName);
                             editor.apply();
@@ -170,15 +164,21 @@ public class LoginActivity extends AppCompatActivity {
 
             if(cursor.moveToNext()) {
 
-                SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);//so that only our app can read this preference
-                SharedPreferences.Editor editor = preferences.edit();
+                SharedPreferences preferences1 = getSharedPreferences("useriddetails",MODE_PRIVATE);//so that only our app can read this preference
+                SharedPreferences.Editor editor1 = preferences1.edit();
+                editor1.putInt("userid",cursor.getInt(0));
+                editor1.apply();
+
+
+                SharedPreferences preferences2 = getSharedPreferences("usernamedetails",MODE_PRIVATE);//so that only our app can read this preference
+                SharedPreferences.Editor editor2 = preferences2.edit();
+                editor2.putString("username",cursor.getString(1));
+                editor2.apply();
+
+                SharedPreferences preferences3 = getSharedPreferences("useremaildetails",MODE_PRIVATE);//so that only our app can read this preference
+                SharedPreferences.Editor editor = preferences3.edit();
                 editor.putString("useremail",cursor.getString(2));
                 editor.apply();
-
-                SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);//so that only our app can read this preference
-                SharedPreferences.Editor editor1 = preferences1.edit();
-                editor1.putString("username",cursor.getString(1));
-                editor1.apply();
 
 
 

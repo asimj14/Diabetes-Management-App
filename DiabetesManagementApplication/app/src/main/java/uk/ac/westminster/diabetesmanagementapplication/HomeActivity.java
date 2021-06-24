@@ -118,8 +118,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void displayAllData() {
+
+        SharedPreferences preferences = getSharedPreferences("useriddetails",MODE_PRIVATE);
+        Integer userid = preferences.getInt("userid",0);
+        String userID = Integer.toString(userid);
+
         sqLiteDatabase = db.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose WHERE patientId=?", new String[]{userID});
+        //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose", null);
+
         if (cursor.getCount() > 0) {
             id = new int[cursor.getCount()];
             glucose = new String[cursor.getCount()];
@@ -171,6 +178,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             edit = convertView.findViewById(R.id.edit_data);
             delete = convertView.findViewById(R.id.delete_data);
             textView.setText("BG: "+glucose[position]+"\n Date: "+recordDate[position]+"\n Time: "+recordTime[position]);
+            if(position % 2 == 0){
+                convertView.setBackgroundColor(Color.parseColor("#f2f2f2"));
+
+
+            }
 
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -26,7 +26,8 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             android:layout_span="1"
-            android:src="@drawable/ic_edit" />
+            android:src="@drawable/ic_edit"
+            />
 
         <ImageView
             android:id="@+id/delete_data"
