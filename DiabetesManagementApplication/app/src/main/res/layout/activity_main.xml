@@ -46,6 +46,7 @@
         android:background="@drawable/input_bg"
         android:hint="Enter Email"
         android:drawableLeft="@drawable/ic_alt_email"
+        android:inputType="textEmailAddress"
         android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"

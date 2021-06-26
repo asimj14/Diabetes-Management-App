@@ -78,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(userEmail.equals("") || userPass.equals("")){
                     Toast.makeText(LoginActivity.this, "Please enter the credentials!", Toast.LENGTH_SHORT).show();
 
+                }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+                    Toast.makeText(LoginActivity.this, "Please enter a valid email address!", Toast.LENGTH_SHORT).show();
                 }else{
 
                     //All fields filled

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ff50a517-5472-4245-ab7e-844530f8da09" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/drawable/ic_notifications.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/GraphsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/GraphsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/HomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/SettingsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_add_event.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_add_event.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1uU0NGXlGjHlRNyGa0QBy61SCqd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ff50a517-5472-4245-ab7e-844530f8da09" name="Default Changelist" comment="" />
+      <created>1624704824945</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1624704824945</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -143,6 +143,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Custom adapter = new Custom();
             listView.setAdapter(adapter);
 
+        }else{
+            Toast.makeText(this, "No data found!!", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Patterns;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 String myPass = password.getText().toString();
                 String myRepass = repassword.getText().toString();
                 String myDateBirth = dateBirth.toString();
+
                 if (radioButtonM.isChecked()) {
                     myGender = "Male";
                 } else if (radioButtonF.isChecked()) {
@@ -114,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
                 //Checking if empty fields
                 if (myUser.equals("") || myEmail.equals("") || myPass.equals("") || myRepass.equals("") || myDateBirth.equals("") || (!radioButtonM.isChecked() && !radioButtonF.isChecked())) {
                     Toast.makeText(MainActivity.this, "Please fill all the required fields!", Toast.LENGTH_SHORT).show();
-                } else {
+                }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+                    Toast.makeText(MainActivity.this, "Please enter a valid email address!", Toast.LENGTH_SHORT).show();
+                }else {
                     if (myPass.equals(myRepass)) {
                         Boolean validUserResult = db.checkUserEmail(myEmail);
                         if (validUserResult == false) {
@@ -124,13 +128,13 @@ public class MainActivity extends AppCompatActivity {
                                 result = db.insertUser(myUser, myEmail, myPass, myDateBirth, myGender);
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                Toast.makeText(MainActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Registration Error!", Toast.LENGTH_SHORT).show();
 
                             }
                             if (result == true) {
                                 //Toast.makeText(MainActivity.this, "encrpted pass: "+shaPass.toString(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(MainActivity.this, "Gender:" + myGender, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(MainActivity.this, "encrpted pass: " + encryptedPass.toString(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(MainActivity.this, "Gender:" + myGender, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(MainActivity.this, "encrpted pass: " + encryptedPass.toString(), Toast.LENGTH_SHORT).show();
 
                                 Toast.makeText(MainActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                                 //move to login page
@@ -164,23 +168,4 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-//    public void onSubmit(View view){
-//
-//        AlertDialog.Builder exitBuilder = new AlertDialog.Builder(this);
-//
-//        exitBuilder.setTitle("Exit ?");
-//        exitBuilder.setMessage("Are you sure you want to Exit ?");
-//        exitBuilder.setCancelable(false);
-//        exitBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                MainActivity.this.finish();
-//            }
-//        });
-//        exitBuilder.setNegativeButton("No", null)
-//                .show();
-//
-//    }
 }

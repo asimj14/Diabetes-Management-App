@@ -19,7 +19,6 @@
         app:menu="@menu/sidemenu"/>
 
 
-
         <RelativeLayout
             android:id="@+id/relativelayout"
             android:layout_width="match_parent"

@@ -18,9 +18,7 @@
         app:menu="@menu/sidemenu"/>
 
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <RelativeLayout
             android:id="@+id/relativelayout"
             android:layout_width="match_parent"
             android:layout_height="725dp"
@@ -38,18 +36,223 @@
                 tools:ignore="MissingConstraints"
                 android:onClick="clickMenu"/>
 
-            <TextView
-                android:id="@+id/labelSettings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
-                android:gravity="center"
-                android:text="Settings"
-                android:textColor="@color/black"
-                android:textSize="35sp"
-                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="16dp">
 
+
+                <TextView
+                    android:id="@+id/labelNotifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="60dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="Add Reminder Alarm"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="One Time Alarm"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/labelNotifications"/>
+
+                <LinearLayout
+                    android:id="@+id/layoutDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonOneDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_date"
+                        style="@style/Widget.AppCompat.ImageButton"/>
+
+                    <TextView
+                        android:id="@+id/textViewOneDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Select the Date"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonOneTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_access_time"
+                        style="@style/Widget.AppCompat.ImageButton"/>
+
+                    <TextView
+                        android:id="@+id/textViewOneTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Select the Time"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8dp"/>
+
+
+
+                </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTextOnceMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Alarm notification message"
+                android:inputType="text"
+                android:drawableLeft="@drawable/ic_notifications"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp"
+                android:layout_below="@+id/layoutTime"
+                android:background="@drawable/input_bg"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:singleLine="true"
+                android:textSize="15dp"/>
+
+
+            <Button
+                android:id="@+id/btnSetOneTimeEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextOnceMessage"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:text="Set One Time Alarm"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                app:cornerRadius="45dp" />
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Repeating Alarm"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/btnSetOneTimeEvent"/>
+
+
+                <LinearLayout
+                    android:id="@+id/layoutRepeatTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonRepeatTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_access_time"
+                        style="@style/Widget.AppCompat.ImageButton"/>
+
+                    <TextView
+                        android:id="@+id/textViewRepeatTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Select the Time"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8dp"/>
+
+
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/editTextRepeatMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Alarm notification message"
+                    android:inputType="text"
+                    android:drawableLeft="@drawable/ic_notifications"
+                    android:drawablePadding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_below="@+id/layoutTime"
+                    android:background="@drawable/input_bg"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:singleLine="true"
+                    android:textSize="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btnSetRepeatEvent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginRight="8dp"
+                        android:backgroundTint="@android:color/holo_blue_dark"
+                        android:text="Set Repeat Alarm"
+                        android:textAllCaps="false"
+                        android:textSize="15sp"
+                        app:cornerRadius="45dp" />
+
+
+                    <Button
+                        android:id="@+id/btnCancelRepeatEvent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginLeft="8dp"
+
+                        android:backgroundTint="@android:color/holo_blue_dark"
+                        android:text="Cancel Repeat Alarm"
+                        android:textAllCaps="false"
+                        android:textSize="15sp"
+                        app:cornerRadius="45dp" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigator"
                 android:layout_width="match_parent"
