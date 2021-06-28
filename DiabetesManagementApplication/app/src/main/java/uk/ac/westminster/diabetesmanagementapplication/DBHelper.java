@@ -24,9 +24,9 @@ public class DBHelper extends SQLiteOpenHelper {
     String encrytedPass,decryptedPass;
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE users(userid Integer primary key autoincrement,username Text, email Text, password Text, dateBirth String, gender Text)");
-        db.execSQL("CREATE TABLE glucose(id Integer primary key autoincrement, glucoseValue Double, recordDate Text, recordTime Text, patientId Integer, foreign key(patientId) REFERENCES users(userid))");
-        db.execSQL("CREATE TABLE graph(xValue Integer, yValue Integer)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS users(userid Integer primary key autoincrement,username Text, email Text, password Text, dateBirth String, gender Text)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS glucose(id Integer primary key autoincrement, glucoseValue Double, recordDate Text, recordTime Text, patientId Integer, foreign key(patientId) REFERENCES users(userid))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS graph(xValue REAL, yValue REAL)");
     }
 
     @Override
@@ -127,6 +127,17 @@ public class DBHelper extends SQLiteOpenHelper {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
         //Returning secret key
         return secretKeySpec;
+    }
+
+    public Boolean insertGraphData(float valueX, float valueY){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("xValues", valueX);
+        contentValues.put("yValues", valueY);
+        db.insert("graph",null,contentValues);
+        return true;
+
     }
 
 

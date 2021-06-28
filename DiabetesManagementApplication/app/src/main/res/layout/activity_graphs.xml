@@ -48,11 +48,15 @@
                 android:textSize="35sp"
                 android:textStyle="bold"/>
 
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/graph"
+
+
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="451dp"
-                android:layout_below="@+id/labelGraphs" />
+                android:layout_below="@+id/labelGraphs"
+                />
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView

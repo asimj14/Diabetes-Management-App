@@ -45,7 +45,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="Statistics"
                 android:textColor="@color/black"
-                android:textSize="35sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
 

@@ -104,6 +104,13 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                         editTextDate.setText(date);
                     }
                 }, year, month, day);
+                //Disabling Past Dates
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                //Disabling Future Dates
+                //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+
+                //Showing datepicker
+                datePickerDialog.show();
                 datePickerDialog.show();
 
             }
@@ -217,20 +224,32 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View v) {
 
+                Double glucoseD = Double.parseDouble(editTextGlucoseValue.getText().toString());
 
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("glucoseValue", editTextGlucoseValue.getText().toString());
-                contentValues.put("recordDate", editTextDate.getText().toString());
-                contentValues.put("recordTime", editTextTime.getText().toString());
-                contentValues.put("patientId",userID);
+                if (glucoseD > 900) {
 
-                sqLiteDatabase = db.getWritableDatabase();
-                Long recid = sqLiteDatabase.insert("glucose",null, contentValues);
-                if (recid != null) {
-                    Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!"+userID, Toast.LENGTH_SHORT).show();
-                    clear();
-                } else {
-                    Toast.makeText(AddEventActivity.this, "Error! Please try again!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddEventActivity.this, "Please enter a valid BG Level!", Toast.LENGTH_SHORT).show();
+
+
+                } else if (glucoseD < 1) {
+                    Toast.makeText(AddEventActivity.this, "Please enter a valid BG Level!", Toast.LENGTH_SHORT).show();
+
+                }else{
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("glucoseValue", editTextGlucoseValue.getText().toString());
+                        contentValues.put("recordDate", editTextDate.getText().toString());
+                        contentValues.put("recordTime", editTextTime.getText().toString());
+                        contentValues.put("patientId", userID);
+
+                        sqLiteDatabase = db.getWritableDatabase();
+                        Long recid = sqLiteDatabase.insert("glucose", null, contentValues);
+                        if (recid != null) {
+                            Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!" + userID, Toast.LENGTH_SHORT).show();
+                            clear();
+                        } else {
+                            Toast.makeText(AddEventActivity.this, "Error! Please try again!", Toast.LENGTH_SHORT).show();
+                        }
+
                 }
 
             }

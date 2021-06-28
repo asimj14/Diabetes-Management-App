@@ -95,6 +95,7 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
                         mDay = dayOfMonth;
                     }
                 }, mYear, mMonth,mDay);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
         });

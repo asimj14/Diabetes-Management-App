@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         //ListView
         db = new DBHelper(HomeActivity.this);
+
         //create methods
         findId();
         displayAllData();
@@ -79,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             return false;
         });
+
 
 
         //Bottom Navigator
@@ -145,6 +148,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         }else{
             Toast.makeText(this, "No data found!!", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -180,11 +184,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             edit = convertView.findViewById(R.id.edit_data);
             delete = convertView.findViewById(R.id.delete_data);
             textView.setText("BG: "+glucose[position]+"\n Date: "+recordDate[position]+"\n Time: "+recordTime[position]);
-            if(position % 2 == 0){
-                convertView.setBackgroundColor(Color.parseColor("#f2f2f2"));
+//            if(position % 2 == 0){
+//                convertView.setBackgroundColor(Color.parseColor("#f2f2f2"));
+//
+//            }
+
+
+            if((Integer.parseInt(glucose[position]) <= 80)){
+                convertView.setBackgroundColor(Color.parseColor("#AEF5D3"));
+                textView.setTextColor(Color.BLACK);
+
+            }else if((Integer.parseInt(glucose[position]) > 80) && (Integer.parseInt(glucose[position]) <= 115)){
+                convertView.setBackgroundColor(Color.parseColor("#21B14D"));
+                textView.setTextColor(Color.WHITE);
+
+            }else if((Integer.parseInt(glucose[position]) > 115) && (Integer.parseInt(glucose[position]) < 180)){
+                convertView.setBackgroundColor(Color.parseColor("#F7AD44"));
+                textView.setTextColor(Color.BLACK);
+
+            }else if((Integer.parseInt(glucose[position]) >= 180)){
+
+                convertView.setBackgroundColor(Color.parseColor("#AE1C1C"));
+                textView.setTextColor(Color.WHITE);
+
 
 
             }
+
 
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override

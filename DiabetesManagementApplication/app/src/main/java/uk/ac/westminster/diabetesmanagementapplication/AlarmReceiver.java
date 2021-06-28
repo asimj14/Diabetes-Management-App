@@ -1,5 +1,6 @@
 package uk.ac.westminster.diabetesmanagementapplication;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
