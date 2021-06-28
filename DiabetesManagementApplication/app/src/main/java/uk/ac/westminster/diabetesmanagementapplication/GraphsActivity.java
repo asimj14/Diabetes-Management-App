@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +22,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -35,6 +43,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.github.mikephil.charting.charts.LineChart;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GraphsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
@@ -43,19 +52,30 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
     Toolbar toolbar;
     DBHelper db;
     SQLiteDatabase sqLiteDatabase;
+    String[] glucose;
+    String[] recordDate;
+    String[] recordTime;
+    int[] id;
 
     LineDataSet lineDataSet = new LineDataSet(null,null);
     ArrayList<ILineDataSet> dataSets = new ArrayList<>();
     LineData lineData;
     LineChart lineChart;
+    int lowCount=0,normalCount=0,highCount=0,extraHighCount=0;
+
+    float rainfall[] = {98.8f,123.8f,161.6f,24.2f,52f,58.2f,35.4f,13.8f,78.4f,203.4f,240.2f,159.7f};
+    String monthNames[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+
+    //String LevelNames = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphs);
         updateNavHeader();
+
         
-        Utils.init(this);
+        //Utils.init(this);
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationview = findViewById(R.id.navigationview);
         toolbar = findViewById(R.id.toolbar);
@@ -65,9 +85,43 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         String userID = Integer.toString(userid);
         db = new DBHelper(this);
 
+        sqLiteDatabase = db.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose WHERE patientId=?", new String[]{userID});
+        //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose", null);
+
+        if (cursor.getCount() > 0) {
+            id = new int[cursor.getCount()];
+            glucose = new String[cursor.getCount()];
+            recordDate = new String[cursor.getCount()];
+            recordTime = new String[cursor.getCount()];
+            int i = cursor.getCount() - 1;
+            while (cursor.moveToNext()) {
+                id[i] = cursor.getInt(0);
+                glucose[i] = cursor.getString(1);
+                if(Integer.parseInt(glucose[i]) <= 80){
+                    lowCount++;
+                }else if((Integer.parseInt(glucose[i]) > 80) && (Integer.parseInt(glucose[i]) <= 115)){
+                    normalCount++;
+                }else if((Integer.parseInt(glucose[i]) > 115) && (Integer.parseInt(glucose[i]) < 180)){
+                   highCount++;
+                }else if((Integer.parseInt(glucose[i]) >= 180)) {
+                    extraHighCount++;
+                }
+
+                recordDate[i] = cursor.getString(2);
+                recordTime[i] = cursor.getString(3);
+                i--;
+            }
+        }
+
+        //PieChart
+
+        setupPieChart();
+
+
         //Graph
         String x, y;
-        lineChart  = findViewById(R.id.chart);
+        //lineChart  = findViewById(R.id.chart);
 
 //        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[]{
 //
@@ -84,8 +138,8 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
 //
 //        graph.addSeries(series);
 
-        displayGraph();
-        lineDataSet.setLineWidth(4);
+        //displayGraph();
+        //lineDataSet.setLineWidth(4);
 
 
         //Side Navigator
@@ -134,6 +188,59 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         });
     }
 
+    private void setupPieChart() {
+
+        //Populating a list of Pie entries
+        List<PieEntry> pieEntries = new ArrayList<>();
+
+        // string and integer data
+        String status[] = {"Low", "Normal", "High", "Extra High"};
+
+        int values[] = {lowCount, normalCount, highCount, extraHighCount};
+
+        //For every slice an entry
+        //Will pair together month & value in pie entry
+        for (int i = 0; i < values.length; i++) {
+            pieEntries.add(new PieEntry(values[i], status[i]));
+            //pieEntries.add(new PieEntry(rainfall[i],monthNames[i]));
+
+        }
+        //Pie data set
+        PieDataSet dataSet = new PieDataSet(pieEntries, "");
+        dataSet.setColors(Color.rgb(245, 199, 0), Color.rgb(106, 150, 31), Color.rgb(255, 102, 0),
+                Color.rgb(193, 37, 82), Color.rgb(179, 100, 53));
+        Legend legend;
+        Description description = new Description();
+
+        //red rgb(193, 37, 82)
+        //orange rgb(255, 102, 0)
+        //yellow rgb(245, 199, 0)
+        //green rgb(106, 150, 31)
+
+        //Pie data Obj
+        PieData data = new PieData(dataSet);
+        data.setValueTextSize(15);
+        //Get the chart
+        PieChart chart = (PieChart) findViewById(R.id.pieChart);
+        chart.setData(data);
+        legend = chart.getLegend();
+        legend.setEnabled(true);
+        //chart.setHoleRadius(20);
+        //legend.setTextColor(Color.RED);
+        legend.setTextSize(15);
+        chart.setDescription(description);
+        chart.animateY(1000);
+        chart.setUsePercentValues(true);
+        chart.invalidate();
+
+    }
+
+//     @Override
+//     public static final int[] COLORFUL_COLORS = {
+//            Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
+//            Color.rgb(106, 150, 31), Color.rgb(179, 100, 53)
+//    };
+
     private void displayGraph(){
 
         lineDataSet.setValues(getDataValues());
@@ -150,9 +257,9 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         ArrayList<Entry> dataVals = new ArrayList<>();
         String[] columns = {"xValues","yValues"};
 
-        SharedPreferences preferences = getSharedPreferences("useriddetails", MODE_PRIVATE);
-        Integer userid = preferences.getInt("userid", 0);
-        String userID = Integer.toString(userid);
+        //SharedPreferences preferences = getSharedPreferences("useriddetails", MODE_PRIVATE);
+       // Integer userid = preferences.getInt("userid", 0);
+       // String userID = Integer.toString(userid);
 
         sqLiteDatabase = db.getWritableDatabase();
         //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM graph WHERE patientId=?", new String[]{userID});
@@ -165,8 +272,6 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         return dataVals;
 
     }
-
-
 
 
     private DataPoint[] grabData() {

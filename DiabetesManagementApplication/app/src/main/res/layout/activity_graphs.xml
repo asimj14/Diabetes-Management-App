@@ -43,18 +43,18 @@
                 android:layout_marginTop="100dp"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
-                android:text="Graphs"
+                android:text="Average Gloose Levels Graph"
                 android:textColor="@color/black"
-                android:textSize="35sp"
+                android:textSize="25sp"
                 android:textStyle="bold"/>
 
 
 
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
                 android:layout_width="match_parent"
-                android:layout_height="451dp"
+                android:layout_height="515dp"
                 android:layout_below="@+id/labelGraphs"
                 />
 

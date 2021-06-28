@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff50a517-5472-4245-ab7e-844530f8da09" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/drawable/ic_notifications.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/GraphsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/GraphsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/HomeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/java/uk/ac/westminster/diabetesmanagementapplication/SettingsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_add_event.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_add_event.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DiabetesManagementApplication/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ff50a517-5472-4245-ab7e-844530f8da09" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

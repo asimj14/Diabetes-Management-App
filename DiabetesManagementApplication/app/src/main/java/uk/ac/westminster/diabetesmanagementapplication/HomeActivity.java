@@ -191,23 +191,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
             if((Integer.parseInt(glucose[position]) <= 80)){
-                convertView.setBackgroundColor(Color.parseColor("#AEF5D3"));
-                textView.setTextColor(Color.BLACK);
+                //convertView.setBackgroundColor(Color.parseColor("#E2C856"));
+                convertView.setBackgroundColor(Color.rgb(245, 199, 0));
+                textView.setTextColor(Color.WHITE);
 
             }else if((Integer.parseInt(glucose[position]) > 80) && (Integer.parseInt(glucose[position]) <= 115)){
-                convertView.setBackgroundColor(Color.parseColor("#21B14D"));
+                //convertView.setBackgroundColor(Color.parseColor("#7E9E53"));
+                convertView.setBackgroundColor(Color.rgb(106, 150, 31));
                 textView.setTextColor(Color.WHITE);
 
             }else if((Integer.parseInt(glucose[position]) > 115) && (Integer.parseInt(glucose[position]) < 180)){
-                convertView.setBackgroundColor(Color.parseColor("#F7AD44"));
-                textView.setTextColor(Color.BLACK);
+                //convertView.setBackgroundColor(Color.parseColor("#EC8E4E"));
+                convertView.setBackgroundColor(Color.rgb(255, 102, 0));
+                textView.setTextColor(Color.WHITE);
 
             }else if((Integer.parseInt(glucose[position]) >= 180)){
 
-                convertView.setBackgroundColor(Color.parseColor("#AE1C1C"));
+                //convertView.setBackgroundColor(Color.parseColor("#BF616F"));
+                convertView.setBackgroundColor(Color.rgb(193, 37, 82));
+
                 textView.setTextColor(Color.WHITE);
-
-
 
             }
 
