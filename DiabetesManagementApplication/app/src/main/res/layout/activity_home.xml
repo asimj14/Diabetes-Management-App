@@ -32,10 +32,11 @@
                 android:layout_marginBottom="5dp"
                 android:background="@color/purple_500"
                 app:logo="@drawable/ic_sidemenu"
-                app:title="Diabetes Management Application"
-                app:titleMarginStart="20dp"
+                app:title="DiaBetter"
+                app:titleMarginStart="130dp"
                 tools:ignore="MissingConstraints"
                 android:onClick="clickMenu"/>
+
 
             <TextView
                 android:id="@+id/textViewDashboard"
@@ -45,8 +46,9 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
-                android:text="Welcome to Records!"
-                android:textColor="@color/black"
+                android:text="Welcome to DiaBetter Records"
+                android:textColor="@android:color/holo_blue_dark"
+                android:background="#07000000"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
 

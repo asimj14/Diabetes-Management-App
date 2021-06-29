@@ -31,10 +31,10 @@
                 android:layout_marginBottom="5dp"
                 android:background="@color/purple_500"
                 app:logo="@drawable/ic_sidemenu"
-                app:title="Diabetes Management Application"
-                app:titleMarginStart="20dp"
+                app:title="DiaBetter"
+                app:titleMarginStart="130dp"
                 tools:ignore="MissingConstraints"
-                android:onClick="clickMenu"/>
+                 android:onClick="clickMenu"/>
 
             <TextView
                 android:id="@+id/labelStatistics"
@@ -43,10 +43,157 @@
                 android:layout_marginTop="100dp"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
-                android:text="Statistics"
-                android:textColor="@color/black"
+                android:text="DiaBetter Statistics"
+                android:background="#07000000"
+                android:textColor="@android:color/holo_blue_dark"
                 android:textSize="25sp"
                 android:textStyle="bold" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_margin="40dp"
+                android:layout_below="@+id/labelStatistics">
+
+                <!-- Table Heading -->
+
+                <TableRow
+                    android:background="@android:color/holo_blue_dark">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="BG Levels"
+                        android:textColor="@color/white"
+                        android:padding="10sp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Frequency"
+                        android:textColor="@color/white"
+                        android:padding="10sp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                </TableRow>
+
+                <!-- Table Rows -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/labellow"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Low Levels"
+                        android:textColor="@color/white"
+                        android:padding="10sp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        />
+                    <TextView
+                        android:id="@+id/txt_low_levels"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:padding="10sp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/labelnormal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:padding="10sp"
+                        android:text="Normal Levels"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_normal_levels"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:padding="10sp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/labelhigh"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="High Levels"
+                        android:textColor="@color/white"
+                        android:padding="10sp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_high_levels"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:padding="10sp"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/labelexhigh"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Extra High Levels"
+                        android:textColor="@color/white"
+                        android:padding="10sp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_extra_high_levels"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:padding="10sp"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </TableRow>
+
+            </TableLayout>
+
 
 
 
