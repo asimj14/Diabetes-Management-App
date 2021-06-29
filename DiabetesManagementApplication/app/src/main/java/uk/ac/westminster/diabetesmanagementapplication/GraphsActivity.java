@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.icu.number.NumberFormatter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
@@ -63,10 +65,6 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
     LineChart lineChart;
     int lowCount=0,normalCount=0,highCount=0,extraHighCount=0;
 
-    float rainfall[] = {98.8f,123.8f,161.6f,24.2f,52f,58.2f,35.4f,13.8f,78.4f,203.4f,240.2f,159.7f};
-    String monthNames[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-
-    //String LevelNames = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +73,7 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         updateNavHeader();
 
         
-        //Utils.init(this);
+
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationview = findViewById(R.id.navigationview);
         toolbar = findViewById(R.id.toolbar);
@@ -87,7 +85,6 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
 
         sqLiteDatabase = db.getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose WHERE patientId=?", new String[]{userID});
-        //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose", null);
 
         if (cursor.getCount() > 0) {
             id = new int[cursor.getCount()];
@@ -115,32 +112,7 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         }
 
         //PieChart
-
         setupPieChart();
-
-
-        //Graph
-        String x, y;
-        //lineChart  = findViewById(R.id.chart);
-
-//        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[]{
-//
-//                new DataPoint(0, 1),
-//                new DataPoint(1, 5),
-//                new DataPoint(2, 3),
-//                new DataPoint(3, 2),
-//                new DataPoint(4, 6),
-//                new DataPoint(5, 4),
-//                new DataPoint(6, 5),
-//                new DataPoint(7, 6),
-//                new DataPoint(8, 4)
-//        });
-//
-//        graph.addSeries(series);
-
-        //displayGraph();
-        //lineDataSet.setLineWidth(4);
-
 
         //Side Navigator
         navigationview.bringToFront();
@@ -199,10 +171,10 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         int values[] = {lowCount, normalCount, highCount, extraHighCount};
 
         //For every slice an entry
-        //Will pair together month & value in pie entry
+        //Will pair together status & value of BG in pie entry
         for (int i = 0; i < values.length; i++) {
             pieEntries.add(new PieEntry(values[i], status[i]));
-            //pieEntries.add(new PieEntry(rainfall[i],monthNames[i]));
+
 
         }
         //Pie data set
@@ -211,6 +183,9 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
                 Color.rgb(193, 37, 82), Color.rgb(179, 100, 53));
         Legend legend;
         Description description = new Description();
+        description.setText("Your average blood glucose levels");
+        description.setTextSize(15);
+        description.setPosition(2,3);
 
         //red rgb(193, 37, 82)
         //orange rgb(255, 102, 0)
@@ -220,6 +195,8 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         //Pie data Obj
         PieData data = new PieData(dataSet);
         data.setValueTextSize(15);
+        data.setValueFormatter(new PercentFormatter());
+
         //Get the chart
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
         chart.setData(data);
