@@ -57,7 +57,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-
     //Verify username
     public Boolean checkUserEmail(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -81,6 +80,22 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
+    //Update Password
+    public Boolean updatePassword(String email, String password) throws Exception {
+        encrytedPass = encrypt(password,password);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("password",encrytedPass);
+        long result = db.update("users",contentValues, "email=?",new String[]{email});
+        if (result == -1) { //update failed
+            return false;
+        } else { //update successfull
+            return true;
+        }
+    }
+
+
+
     //Encrypt or Decrypt password
 
     public static byte[] encryptSHA(byte[] data, String shaN) throws Exception {

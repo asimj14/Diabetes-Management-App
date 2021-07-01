@@ -15,9 +15,13 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +39,27 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Cell.*;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.HorizontalAlignment;
+
+import org.w3c.dom.DocumentFragment;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -50,6 +75,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     String[] recordDate;
     String[] recordTime;
     int[] id;
+    int mYear, mMonth, mDay, mHour, mMinute;
+    String todayDate="";
+    String todayTime="";
 
 
     @Override
@@ -75,6 +103,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationview.bringToFront();
         navigationview.setNavigationItemSelectedListener((menuItem) -> {
             switch (menuItem.getItemId()) {
+                case R.id.share_opt:
+                    try {
+                        createPdf();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case R.id.logout_opt:
                     clickLogout();
                     break;
@@ -120,6 +155,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         updateNavHeader();
     }
 
+    //Display all BG level records
     private void displayAllData() {
 
         SharedPreferences preferences = getSharedPreferences("useriddetails",MODE_PRIVATE);
@@ -356,5 +392,107 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull  MenuItem item) {
         return true;
     }
-}
 
+//PDF
+
+    public void createPdf() throws FileNotFoundException {
+
+        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail","");
+
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
+        String userName = preferences1.getString("username","");
+
+        //Today Date
+        Calendar calendar = Calendar.getInstance();
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        mHour = calendar.get(Calendar.HOUR_OF_DAY);
+        mMinute = calendar.get(Calendar.MINUTE);
+
+
+        todayDate = (String.format("%04d-%02d-%02d",mYear,mMonth+1,mDay));
+        todayTime = (String.format(("%02d:%02d"), mHour,mMinute));
+
+
+        String pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+        File file = new File(pdfPath, "myBGReadings.pdf");
+        OutputStream outputStream = new FileOutputStream(file);
+
+        PdfWriter writer = new PdfWriter(file);
+        PdfDocument pdfDocument = new PdfDocument(writer);
+        Document document = new Document(pdfDocument);
+        document.setMargins(0,0,0,0);
+
+        //Image1
+        Drawable d1 = getResources().getDrawable(R.drawable.background);
+        Bitmap bitmap1 = ((BitmapDrawable)d1).getBitmap();
+        ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+        bitmap1.compress(Bitmap.CompressFormat.PNG,100,stream1);
+        byte[] bitmapData1 = stream1.toByteArray();
+        ImageData imageData1 = ImageDataFactory.create(bitmapData1);
+        Image image1 = new Image(imageData1);
+
+        //Image2
+        Drawable d2 = getResources().getDrawable(R.drawable.logo_small);
+        Bitmap bitmap2 = ((BitmapDrawable)d2).getBitmap();
+        ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+        bitmap2.compress(Bitmap.CompressFormat.PNG,100,stream2);
+        byte[] bitmapData2 = stream2.toByteArray();
+        ImageData imageData2 = ImageDataFactory.create(bitmapData2);
+        Image image2 = new Image(imageData2);
+        image2.setWidth(150);
+        image2.setHeight(100);
+        image2.setMargins(20,30,20,30);
+        image2.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+        document.add(image1.setFixedPosition(0,0));
+        document.add(image2);
+
+        float columnWidth[] = {120,220,120,100};
+        Table userTable = new Table(columnWidth);
+        userTable.addCell(new Cell().add(new Paragraph("Patient Name").setFontSize(14).setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        userTable.addCell(new Cell().add(new Paragraph(userName).setFontSize(14)));
+        userTable.addCell(new Cell().add(new Paragraph("Patient Email").setFontSize(14).setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        userTable.addCell(new Cell().add(new Paragraph(userEmail).setFontSize(14)));
+        userTable.addCell(new Cell().add(new Paragraph("Date").setFontSize(14).setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        userTable.addCell(new Cell().add(new Paragraph(todayDate).setFontSize(14)));
+        userTable.addCell(new Cell().add(new Paragraph("Time").setFontSize(14).setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        userTable.addCell(new Cell().add(new Paragraph(todayTime).setFontSize(14)));
+        userTable.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        userTable.setMarginTop(10);
+        userTable.setMarginBottom(20);
+        userTable.setMarginLeft(20);
+        userTable.setMarginRight(20);
+        document.add(userTable);
+
+
+
+        String [] tableHeader = {"BG Level","Date","Time"};
+        float columnWidth1[] = {200f,50f,100f};
+        Table table = new Table(columnWidth1);
+        table.addCell(new Cell().add(new Paragraph(tableHeader[0]).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        table.addCell(new Cell().add(new Paragraph(tableHeader[1]).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        table.addCell(new Cell().add(new Paragraph(tableHeader[2]).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+
+        for(int i=0;i<glucose.length;i++){
+
+                table.addCell(new Cell().add(new Paragraph(glucose[i])));
+                table.addCell(new Cell().add(new Paragraph(recordDate[i])));
+                table.addCell(new Cell().add(new Paragraph(recordTime[i])));
+
+            
+        }
+
+        table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        document.add(table);
+
+        document.close();
+        Toast.makeText(this, "Pdf Created & Saved!!", Toast.LENGTH_SHORT).show();
+        System.out.println("Pdf created");
+
+
+    }
+
+}

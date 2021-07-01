@@ -190,7 +190,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
             id = bundle.getInt("id");
 
             editTextGlucoseValue.setText(bundle.getString("glucoseValue"));
-            Toast.makeText(this, "Value:" + bundle.getString("glucoseValue") + " selected to be edited", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "BG Reading:" + bundle.getString("glucoseValue") + " selected to be edited", Toast.LENGTH_SHORT).show();
             editTextDate.setText(bundle.getString("recordDate"));
             editTextTime.setText(bundle.getString("recordTime"));
             editDetailsButton.setVisibility(View.VISIBLE);

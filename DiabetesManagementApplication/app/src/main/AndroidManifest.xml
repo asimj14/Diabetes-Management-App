@@ -2,19 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="uk.ac.westminster.diabetesmanagementapplication">
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
         android:icon="@drawable/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabetesManagementApplication"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".UpdateDetails"></activity>
+        <activity android:name=".UpdatePassword"></activity>
+        <activity android:name=".ResetPassword" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".AddEventActivity" />
         <activity android:name=".GraphsActivity" />
         <activity android:name=".StatisticsActivity" />
@@ -29,9 +33,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmReceiver"
+        <receiver
+            android:name=".AlarmReceiver"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>

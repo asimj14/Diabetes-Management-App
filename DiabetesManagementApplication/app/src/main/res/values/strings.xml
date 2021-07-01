@@ -14,4 +14,16 @@
     <string name="logo_name">myDMA</string>
     <string name="slogan_name">We will help you manage your Diabetes in a better way!</string>
     <string name="powered_by">Powered By: Muhammad Asim Javed</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_reset">ResetActivity</string>
+    <string name="title_activity_update_password">UpdatePasswordActivity</string>
+    <string name="title_activity_updatepassword">Updatepassword</string>
 </resources>

@@ -29,8 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText email, password;
     Button btnLogin;
-    TextView forgotPassword;
-    TextView signUp;
+    Button forgotPassword,signUp;
     CheckBox remember;
     SQLiteDatabase sqLiteDatabase;
     DBHelper db;
@@ -43,14 +42,20 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.usernameLogin);
         password = (EditText) findViewById(R.id.passwordLogin);
         btnLogin = (Button)findViewById(R.id.btnLogin);
-        forgotPassword = (TextView)findViewById(R.id.forgotPassword);
-        signUp = (TextView)findViewById(R.id.signUp);
+        forgotPassword = (Button)findViewById(R.id.forgotPassword);
+        signUp = (Button)findViewById(R.id.signUp);
         remember = (CheckBox)findViewById(R.id.rememberme);
 
 
         //forgot password link to
-        forgotPassword.setMovementMethod(LinkMovementMethod.getInstance());
-        //signUp.setMovementMethod(LinkMovementMethod.getInstance());
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ResetPassword.class);
+                startActivity(intent);
+
+            }
+        });
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

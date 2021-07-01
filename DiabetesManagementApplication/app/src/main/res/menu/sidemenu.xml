@@ -7,9 +7,15 @@
 
             <menu>
                 <item
+                    android:id="@+id/share_opt"
+                    android:icon="@drawable/ic_share"
+                    android:title="Share"/>
+
+                <item
                     android:id="@+id/logout_opt"
                     android:icon="@drawable/ic_logout"
                     android:title="Logout"/>
+
             </menu>
 
 

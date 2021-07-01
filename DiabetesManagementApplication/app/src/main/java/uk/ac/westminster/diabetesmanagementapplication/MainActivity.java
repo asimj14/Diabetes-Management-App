@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 Toast.makeText(MainActivity.this, "Registration Error!", Toast.LENGTH_SHORT).show();
-
                             }
                             if (result == true) {
                                 //Toast.makeText(MainActivity.this, "encrpted pass: "+shaPass.toString(), Toast.LENGTH_SHORT).show();
