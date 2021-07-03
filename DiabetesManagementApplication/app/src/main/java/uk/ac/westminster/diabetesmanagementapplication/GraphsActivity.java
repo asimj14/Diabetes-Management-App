@@ -6,16 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.icu.number.NumberFormatter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -34,16 +32,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.github.mikephil.charting.charts.LineChart;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -211,65 +201,7 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         chart.invalidate();
 
     }
-
-//     @Override
-//     public static final int[] COLORFUL_COLORS = {
-//            Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
-//            Color.rgb(106, 150, 31), Color.rgb(179, 100, 53)
-//    };
-
-    private void displayGraph(){
-
-        lineDataSet.setValues(getDataValues());
-        lineDataSet.setLabel("DataSet 1");
-        dataSets.clear();
-        dataSets.add(lineDataSet);
-        lineData = new LineData(dataSets);
-        lineChart.clear();
-        lineChart.setData(lineData);
-        lineChart.invalidate();
-    }
-
-    private ArrayList<Entry> getDataValues() {
-        ArrayList<Entry> dataVals = new ArrayList<>();
-        String[] columns = {"xValues","yValues"};
-
-        //SharedPreferences preferences = getSharedPreferences("useriddetails", MODE_PRIVATE);
-       // Integer userid = preferences.getInt("userid", 0);
-       // String userID = Integer.toString(userid);
-
-        sqLiteDatabase = db.getWritableDatabase();
-        //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM graph WHERE patientId=?", new String[]{userID});
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM graph",null);
-
-        for(int i=0; i<cursor.getCount();i++){
-            cursor.moveToNext();
-            dataVals.add(new Entry(cursor.getFloat(0),cursor.getFloat(1)));
-        }
-        return dataVals;
-
-    }
-
-
-    private DataPoint[] grabData() {
-
-
-        SharedPreferences preferencesUid = getSharedPreferences("useriddetails", MODE_PRIVATE);
-        Integer userid = preferencesUid.getInt("userid", 0);
-        String userID = Integer.toString(userid);
-
-            String[] column = {"xValue", "yValue"};
-            @SuppressLint("Recycle") Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose WHERE patientId=?", new String[]{userID});
-            DataPoint[] dataPoints = new DataPoint[cursor.getCount()];
-            for(int i=0; i<cursor.getCount();i++){
-
-                cursor.moveToNext();
-                dataPoints[i] = new DataPoint(cursor.getDouble(1), Double.parseDouble(cursor.getString(2)));
-
-            }
-            return dataPoints;
-    }
-
+    //Update Nav Header
     public void updateNavHeader(){
 
         SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);

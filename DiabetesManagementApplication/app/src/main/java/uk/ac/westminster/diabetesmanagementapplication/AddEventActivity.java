@@ -27,7 +27,6 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-
 import java.util.Calendar;
 
 public class AddEventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,7 +35,6 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
     DrawerLayout drawerLayout;
     NavigationView navigationview;
     Toolbar toolbar;
-    String userName, userEmail;
     EditText editTextGlucoseValue, editTextDate, editTextTime;
 
     private static DBHelper db;
@@ -49,6 +47,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         updateNavHeader();
+
 
 
         //hooks
@@ -105,12 +104,11 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                     }
                 }, year, month, day);
                 //Disabling Past Dates
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 //Disabling Future Dates
                 //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
 
                 //Showing datepicker
-                datePickerDialog.show();
                 datePickerDialog.show();
 
             }

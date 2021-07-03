@@ -29,7 +29,6 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
     DrawerLayout drawerLayout;
     NavigationView navigationview;
     Toolbar toolbar;
-    String userName, userEmail;
     TextView labelLow,labelNormal,labelHigh, labelExhigh;
     TextView textViewLow,textViewNormal,textViewHigh,textViewExHigh;
     int lowCount=0,normalCount=0,highCount=0,extraHighCount=0;
@@ -188,8 +187,7 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
     }
 
 
-//logout
-
+    //logout
     public void clickLogout() {
         //logout
         logout(this);

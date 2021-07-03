@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
-                //Activity finished so destroy it and move to next actiivty so won't be able to comeback
+                //Activity finished so destroy it and move to next activity so won't be able to comeback
                 finish();
             }
         }, SPLASH_TIMER);

@@ -1,35 +1,16 @@
 package uk.ac.westminster.diabetesmanagementapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Patterns;
 import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.util.Calendar;
-import java.util.Date;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnSignUp, btnSignIn;
     DBHelper db;
     String encryptedPass, encryptedRepass;
-    RadioGroup radioGroup;
     RadioButton radioButtonM, radioButtonF;
     String myGender;
 
@@ -131,9 +111,6 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Registration Error!", Toast.LENGTH_SHORT).show();
                             }
                             if (result == true) {
-                                //Toast.makeText(MainActivity.this, "encrpted pass: "+shaPass.toString(), Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(MainActivity.this, "Gender:" + myGender, Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(MainActivity.this, "encrpted pass: " + encryptedPass.toString(), Toast.LENGTH_SHORT).show();
 
                                 Toast.makeText(MainActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                                 //move to login page

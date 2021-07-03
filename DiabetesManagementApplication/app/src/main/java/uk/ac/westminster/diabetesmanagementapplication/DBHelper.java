@@ -28,14 +28,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS glucose(id Integer primary key autoincrement, glucoseValue Double, recordDate Text, recordTime Text, patientId Integer, foreign key(patientId) REFERENCES users(userid))");
         db.execSQL("CREATE TABLE IF NOT EXISTS graph(xValue REAL, yValue REAL)");
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS users ");
         db.execSQL("DROP TABLE IF EXISTS glucose ");
 
     }
-
     //Insert user in DB
     public Boolean insertUser(String username, String email, String password, String dateBirth, String gender) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();

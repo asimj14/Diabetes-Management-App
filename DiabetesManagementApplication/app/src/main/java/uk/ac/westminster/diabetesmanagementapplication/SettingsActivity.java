@@ -36,7 +36,6 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
     DrawerLayout drawerLayout;
     NavigationView navigationview;
     Toolbar toolbar;
-    String userName, userEmail;
     private TextView tvOnceTime, tvOnceDate, tvRepeatingTime;
     private ImageButton ibOnceTime, ibOnceDate, ibRepeatingTime;
     private EditText etOnceMessage, etRepeatingMessage;
@@ -130,7 +129,6 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
                     }
                 }, mHourRepeat,mMinuteRepeat,true);
                 timePickerDialog.show();
-
             }
         });
 
