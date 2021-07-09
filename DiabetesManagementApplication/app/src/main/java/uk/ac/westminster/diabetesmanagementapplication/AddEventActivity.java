@@ -242,7 +242,9 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                         sqLiteDatabase = db.getWritableDatabase();
                         Long recid = sqLiteDatabase.insert("glucose", null, contentValues);
                         if (recid != null) {
-                            Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!" + userID, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!" + userID, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!", Toast.LENGTH_SHORT).show();
+
                             clear();
                         } else {
                             Toast.makeText(AddEventActivity.this, "Error! Please try again!", Toast.LENGTH_SHORT).show();

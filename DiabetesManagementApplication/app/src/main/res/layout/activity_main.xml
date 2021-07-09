@@ -171,7 +171,7 @@
         android:layout_below="@+id/radiogroupGender"
         android:layout_marginTop="2dp"
         android:backgroundTint="@android:color/holo_blue_dark"
-        android:text="Register"
+        android:text="Sign Up"
         android:textAllCaps="false"
         android:textSize="13dp"
         app:cornerRadius="45dp"/>
@@ -183,7 +183,7 @@
         android:layout_below="@+id/btnSignUp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/white"
-        android:text="Already an existing user?\n Sign in"
+        android:text="Already have an account?\n Sign in"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_blue_light"
         android:textSize="13dp"

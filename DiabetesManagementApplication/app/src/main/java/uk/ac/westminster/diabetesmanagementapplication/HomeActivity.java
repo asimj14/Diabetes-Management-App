@@ -203,7 +203,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
 
             edit = convertView.findViewById(R.id.edit_data);
             delete = convertView.findViewById(R.id.delete_data);
-            textView.setText("BG: "+glucose[position]+"\n Date: "+recordDate[position]+"\n Time: "+recordTime[position]);
+            textView.setText("BG: "+glucose[position]+" mg/dL"+"\n Date: "+recordDate[position]+"\n Time: "+recordTime[position]);
 
             if((Integer.parseInt(glucose[position]) <= 80)){
                 convertView.setBackgroundColor(Color.rgb(245, 199, 0));
@@ -310,7 +310,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         //updating textfields
         navUserName.setText(userName);
         navUserEmail.setText(userEmail);
-        Toast.makeText(this, "User Email:"+userEmail+" User Name:"+userName, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "User Email:"+userEmail+" User Name:"+userName, Toast.LENGTH_SHORT).show();
 
     }
 

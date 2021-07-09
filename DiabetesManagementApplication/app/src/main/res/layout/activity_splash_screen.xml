@@ -29,8 +29,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="89dp"
         android:layout_marginEnd="89dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/powered_by"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/splashscreen"
+        app:layout_constraintEnd_toEndOf="@+id/splashscreen"
+        app:layout_constraintStart_toStartOf="@+id/splashscreen" />
+
+    <TextView
+        android:id="@+id/student_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="89dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/student_id"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintBottom_toBottomOf="@+id/splashscreen"
         app:layout_constraintEnd_toEndOf="@+id/splashscreen"

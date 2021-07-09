@@ -26,7 +26,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS users(userid Integer primary key autoincrement,username Text, email Text, password Text, dateBirth String, gender Text)");
         db.execSQL("CREATE TABLE IF NOT EXISTS glucose(id Integer primary key autoincrement, glucoseValue Double, recordDate Text, recordTime Text, patientId Integer, foreign key(patientId) REFERENCES users(userid))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS graph(xValue REAL, yValue REAL)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -93,39 +92,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
-    //Encrypt or Decrypt password
-
-    public static byte[] encryptSHA(byte[] data, String shaN) throws Exception {
-        MessageDigest sha = MessageDigest.getInstance(shaN);
-        sha.update(data);
-        return sha.digest();
-    }
-
-
-    public String encrypt(String data, String password) throws Exception{
-        SecretKeySpec key = generateKey(password);
-        //Creating Cipher instance from Cipher class with Advance Encrytion Standard Algorithm
-        Cipher c = Cipher.getInstance(AES);
-        //Initializing the Cipher with
-        c.init(Cipher.ENCRYPT_MODE, key);
-        byte[] encVal = c.doFinal(data.getBytes());
-
-        String encryptedValue = Base64.encodeToString(encVal, Base64.DEFAULT);
-        return encryptedValue;
-
-    }
-    public String decrypt(String password) throws Exception{
-        SecretKeySpec key = generateKey(password);
-        Cipher c = Cipher.getInstance(AES);
-        c.init(Cipher.DECRYPT_MODE, key);
-        //decodes encryoted array and return as byte array
-        byte[] decodedValue = Base64.decode(password, Base64.DEFAULT);
-        byte[] decValue = c.doFinal(decodedValue);
-        String decryptedValue = new String(decValue);
-        return decryptedValue;
-    }
-
     public SecretKeySpec generateKey(String password) throws Exception{
         //Using MessageDigest class to get instance of SHA-256 Algorithm to generate Key
         final MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -141,18 +107,28 @@ public class DBHelper extends SQLiteOpenHelper {
         //Returning secret key
         return secretKeySpec;
     }
+    public String encrypt(String data, String password) throws Exception{
+        SecretKeySpec key = generateKey(password);
+        //Creating Cipher instance from Cipher class with Advance Encryption Standard Algorithm
+        Cipher c = Cipher.getInstance(AES);
+        //Initializing the Cipher with
+        c.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encVal = c.doFinal(data.getBytes());
 
-    public Boolean insertGraphData(float valueX, float valueY){
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("xValues", valueX);
-        contentValues.put("yValues", valueY);
-        db.insert("graph",null,contentValues);
-        return true;
+        String encryptedValue = Base64.encodeToString(encVal, Base64.DEFAULT);
+        return encryptedValue;
 
     }
-
+    public String decrypt(String password) throws Exception{
+        SecretKeySpec key = generateKey(password);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE, key);
+        //decodes encrpyoted array and return as byte array
+        byte[] decodedValue = Base64.decode(password, Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodedValue);
+        String decryptedValue = new String(decValue);
+        return decryptedValue;
+    }
 
 }
 
