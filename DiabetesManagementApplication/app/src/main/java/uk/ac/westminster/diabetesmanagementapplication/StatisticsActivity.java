@@ -29,9 +29,9 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
     DrawerLayout drawerLayout;
     NavigationView navigationview;
     Toolbar toolbar;
-    TextView labelLow,labelNormal,labelHigh, labelExhigh;
-    TextView textViewLow,textViewNormal,textViewHigh,textViewExHigh;
-    int lowCount=0,normalCount=0,highCount=0,extraHighCount=0;
+    TextView labelLow, labelNormal, labelHigh, labelExhigh;
+    TextView textViewLow, textViewNormal, textViewHigh, textViewExHigh;
+    int lowCount = 0, normalCount = 0, highCount = 0, extraHighCount = 0;
     DBHelper db;
     SQLiteDatabase sqLiteDatabase;
     String[] glucose;
@@ -58,13 +58,11 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
         labelNormal = findViewById(R.id.labelnormal);
         labelExhigh = findViewById(R.id.labelexhigh);
 
-        //Statistics
-
+        //Statistics Table Feature
         SharedPreferences preferencesUid = getSharedPreferences("useriddetails", MODE_PRIVATE);
         Integer userid = preferencesUid.getInt("userid", 0);
         String userID = Integer.toString(userid);
         db = new DBHelper(this);
-
         sqLiteDatabase = db.getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM glucose WHERE patientId=?", new String[]{userID});
 
@@ -77,16 +75,16 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
             while (cursor.moveToNext()) {
                 id[i] = cursor.getInt(0);
                 glucose[i] = cursor.getString(1);
-                if(Integer.parseInt(glucose[i]) <= 80){
+                if (Integer.parseInt(glucose[i]) <= 80) {
                     lowCount++;
 
-                }else if((Integer.parseInt(glucose[i]) > 80) && (Integer.parseInt(glucose[i]) <= 115)){
+                } else if ((Integer.parseInt(glucose[i]) > 80) && (Integer.parseInt(glucose[i]) <= 115)) {
                     normalCount++;
 
-                }else if((Integer.parseInt(glucose[i]) > 115) && (Integer.parseInt(glucose[i]) < 180)){
+                } else if ((Integer.parseInt(glucose[i]) > 115) && (Integer.parseInt(glucose[i]) < 180)) {
                     highCount++;
 
-                }else if((Integer.parseInt(glucose[i]) >= 180)) {
+                } else if ((Integer.parseInt(glucose[i]) >= 180)) {
                     extraHighCount++;
                 }
 
@@ -112,7 +110,7 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
         //Side Navigator
         navigationview.bringToFront();
         navigationview.setNavigationItemSelectedListener((menuItem) -> {
-            switch(menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.logout_opt:
                     clickLogout();
                     break;
@@ -156,13 +154,13 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
 
     }
 
-    public void updateNavHeader(){
+    public void updateNavHeader() {
 
-        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
-        String userEmail = preferences.getString("useremail","");
+        SharedPreferences preferences = getSharedPreferences("useremaildetails", MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail", "");
 
-        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
-        String userName = preferences1.getString("username","");
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails", MODE_PRIVATE);
+        String userName = preferences1.getString("username", "");
 
 
         navigationview = findViewById(R.id.navigationview);
@@ -204,7 +202,7 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
                 //finish activity
                 activity.finishAffinity();
                 //exit app
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 //System.exit(0);
                 Toast.makeText(StatisticsActivity.this, "Logout Successfully!", Toast.LENGTH_SHORT).show();

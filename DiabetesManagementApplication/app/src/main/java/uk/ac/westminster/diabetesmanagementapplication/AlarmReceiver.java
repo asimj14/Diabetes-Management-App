@@ -31,11 +31,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private static final int ID_ONETIME = 100;
     private static final int ID_REPEATING = 101;
-    private static final String CHANNEL_ID ="channel_notif_alarm" ;
+    private static final String CHANNEL_ID = "channel_notif_alarm";
     private static final CharSequence CHANNEL_NAME = "Alarm Channel";
 
-    public AlarmReceiver(){
-
+    public AlarmReceiver() {
 
 
     }
@@ -48,13 +47,17 @@ public class AlarmReceiver extends BroadcastReceiver {
         String title = type.equalsIgnoreCase(TYPE_ONE_TIME) ? TYPE_ONE_TIME : TYPE_REPEATING;
         int notifId = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONETIME : ID_REPEATING;
 
+        //calling this method to show
         showAlarmNotification(context, title, message, notifId);
     }
 
-    public void showAlarmNotification(Context context, String title, String message, int notifId){
+    //Function to show notifications
+    public void showAlarmNotification(Context context, String title, String message, int notifId) {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //Setting alarm sound
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        //Notification builder
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_access_time_white)
                 .setContentTitle(title)
@@ -63,7 +66,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setSound(alarmSound);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.enableVibration(true);
@@ -71,18 +74,19 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             mBuilder.setChannelId(CHANNEL_ID);
 
-            if(notificationManager != null){
+            if (notificationManager != null) {
                 notificationManager.createNotificationChannel(notificationChannel);
             }
         }
 
-        Notification notification =  mBuilder.build();
-        if(notificationManager != null){
+        Notification notification = mBuilder.build();
+        if (notificationManager != null) {
             notificationManager.notify(notifId, notification);
         }
     }
-    public void setOneTimeAlarm(Context context, String type, String date, String time, String message ){
-        if(isDateInvalid(date, "yyy-MM-dd") || isDateInvalid(time,"HH:mm")) return;
+
+    public void setOneTimeAlarm(Context context, String type, String date, String time, String message) {
+        if (isDateInvalid(date, "yyy-MM-dd") || isDateInvalid(time, "HH:mm")) return;
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -101,15 +105,15 @@ public class AlarmReceiver extends BroadcastReceiver {
         calendar.set(Calendar.SECOND, 0);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_ONETIME, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        if(alarmManager != null){
+        if (alarmManager != null) {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
         Toast.makeText(context, "One time alarm is set", Toast.LENGTH_SHORT).show();
     }
 
-    public void setRepeatingAlarm(Context context, String type, String time, String message){
+    public void setRepeatingAlarm(Context context, String type, String time, String message) {
 
-        if( isDateInvalid(time,"HH:mm")) return;
+        if (isDateInvalid(time, "HH:mm")) return;
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -124,39 +128,38 @@ public class AlarmReceiver extends BroadcastReceiver {
         calendar.set(Calendar.SECOND, 0);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        if(alarmManager != null){
+        if (alarmManager != null) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
         Toast.makeText(context, "Repeating alarm is set", Toast.LENGTH_SHORT).show();
 
 
-
-
     }
 
     //Cancel Alarm
-    public void cancelAlarm(Context context, String type){
+    public void cancelAlarm(Context context, String type) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         int requestCode = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONETIME : ID_REPEATING;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        if(alarmManager != null){
+        if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
         }
 
 
     }
+
     //Check if Alarm is set
-    public boolean isAlarmSet(Context context, String type){
+    public boolean isAlarmSet(Context context, String type) {
         Intent intent = new Intent(context, AlarmReceiver.class);
-        int requestCode = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONETIME: ID_REPEATING;
+        int requestCode = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONETIME : ID_REPEATING;
 
         return PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_NO_CREATE) != null;
 
     }
 
-    public boolean isDateInvalid(String date, String format){
+    public boolean isDateInvalid(String date, String format) {
         DateFormat df = new SimpleDateFormat(format, Locale.getDefault());
         df.setLenient(false);
         try {

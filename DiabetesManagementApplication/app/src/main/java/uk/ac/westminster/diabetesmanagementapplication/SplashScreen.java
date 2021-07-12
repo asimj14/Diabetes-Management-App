@@ -30,8 +30,8 @@ public class SplashScreen extends AppCompatActivity {
         poweredByLine = findViewById(R.id.powered_by_line);
 
         //Animations Hooks
-        sideAnim = AnimationUtils.loadAnimation(this,R.anim.side_anim);
-        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_anim);
+        sideAnim = AnimationUtils.loadAnimation(this, R.anim.side_anim);
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
 
         //Set animations on elements
         splashscreen.setAnimation(sideAnim);
@@ -40,7 +40,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 //Activity finished so destroy it and move to next activity so won't be able to comeback
                 finish();

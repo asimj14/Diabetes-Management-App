@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
 import java.util.Calendar;
 
 public class AddEventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,7 +50,6 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
         updateNavHeader();
 
 
-
         //hooks
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationview = findViewById(R.id.navigationview);
@@ -59,8 +59,8 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
         editTextGlucoseValue = findViewById(R.id.editTextGlucoseValue);
         editTextTime = findViewById(R.id.editTextTime);
 
-        SharedPreferences preferences3 = getSharedPreferences("useriddetails",MODE_PRIVATE);
-        Integer userid = preferences3.getInt("userid",0);
+        SharedPreferences preferences3 = getSharedPreferences("useriddetails", MODE_PRIVATE);
+        Integer userid = preferences3.getInt("userid", 0);
 
         //creating methods
         findId();
@@ -104,7 +104,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                     }
                 }, year, month, day);
                 //Disabling Past Dates
-                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 //Disabling Future Dates
                 //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
 
@@ -123,13 +123,13 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                        if(minute<10 && hourOfDay<10){
-                            editTextTime.setText(0+hourOfDay + ":" + 0+minute);
-                        }else if(minute> 10 && hourOfDay<10){
-                            editTextTime.setText(0+hourOfDay + ":" +minute);
-                        }else if(minute< 10 && hourOfDay>10){
-                            editTextTime.setText(hourOfDay + ":" +0+minute);
-                        }else{
+                        if (minute < 10 && hourOfDay < 10) {
+                            editTextTime.setText(0 + hourOfDay + ":" + 0 + minute);
+                        } else if (minute > 10 && hourOfDay < 10) {
+                            editTextTime.setText(0 + hourOfDay + ":" + minute);
+                        } else if (minute < 10 && hourOfDay > 10) {
+                            editTextTime.setText(hourOfDay + ":" + 0 + minute);
+                        } else {
                             editTextTime.setText(hourOfDay + ":" + minute);
                         }
 
@@ -174,9 +174,8 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
             }
         });
     }
-
+    //Receiving reading's data to be edited and setting to text boxes the current BG Reading
     private void editData() {
-
         //editText hooks
         editTextGlucoseValue = findViewById(R.id.editTextGlucoseValue);
         editTextDate = findViewById(R.id.editTextDate);
@@ -186,14 +185,14 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
 
             Bundle bundle = getIntent().getBundleExtra("userdata");
             id = bundle.getInt("id");
-
+            //Passing the existing data to the text boxes
             editTextGlucoseValue.setText(bundle.getString("glucoseValue"));
-            Toast.makeText(this, "BG Reading:" + bundle.getString("glucoseValue") + " selected to be edited", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "BG Reading:" + bundle.getString("glucoseValue")
+                    + " selected to be edited", Toast.LENGTH_SHORT).show();
             editTextDate.setText(bundle.getString("recordDate"));
             editTextTime.setText(bundle.getString("recordTime"));
             editDetailsButton.setVisibility(View.VISIBLE);
             submitDetailsButton.setVisibility(View.GONE);
-
         }
     }
 
@@ -217,7 +216,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
     }
 
     private void getData(Integer userID) {
-        //Submit Data
+        //Submit Data --> To Add BG Reading to db
         submitDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,26 +231,24 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                 } else if (glucoseD < 1) {
                     Toast.makeText(AddEventActivity.this, "Please enter a valid BG Level!", Toast.LENGTH_SHORT).show();
 
-                }else{
-                        ContentValues contentValues = new ContentValues();
-                        contentValues.put("glucoseValue", editTextGlucoseValue.getText().toString());
-                        contentValues.put("recordDate", editTextDate.getText().toString());
-                        contentValues.put("recordTime", editTextTime.getText().toString());
-                        contentValues.put("patientId", userID);
+                } else {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("glucoseValue", editTextGlucoseValue.getText().toString());
+                    contentValues.put("recordDate", editTextDate.getText().toString());
+                    contentValues.put("recordTime", editTextTime.getText().toString());
+                    contentValues.put("patientId", userID);
 
-                        sqLiteDatabase = db.getWritableDatabase();
-                        Long recid = sqLiteDatabase.insert("glucose", null, contentValues);
-                        if (recid != null) {
-                            //Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!" + userID, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!", Toast.LENGTH_SHORT).show();
+                    sqLiteDatabase = db.getWritableDatabase();
+                    Long recid = sqLiteDatabase.insert("glucose", null, contentValues);
+                    if (recid != null) {
+                        //Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!" + userID, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddEventActivity.this, "New Glucose Reading added successfully!!", Toast.LENGTH_SHORT).show();
 
-                            clear();
-                        } else {
-                            Toast.makeText(AddEventActivity.this, "Error! Please try again!", Toast.LENGTH_SHORT).show();
-                        }
-
+                        clear();
+                    } else {
+                        Toast.makeText(AddEventActivity.this, "Error! Please try again!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
             }
         });
 
@@ -263,7 +260,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        //Edit Data
+        //Edit Data --> edit BG Reading
         editDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,26 +273,24 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                 Long recid = Long.valueOf(sqLiteDatabase.update("glucose", contentValues, "id=" + id, null));
                 if (recid != -1) {
                     Toast.makeText(AddEventActivity.this, "Reading updated successfully!!", Toast.LENGTH_SHORT).show();
-                    //After success eidt button will disappear and submit will appear
+                    //After success edit button will disappear and submit will appear
                     submitDetailsButton.setVisibility(View.VISIBLE);
                     editDetailsButton.setVisibility(View.GONE);
                     clear();
                 } else {
                     Toast.makeText(AddEventActivity.this, "Error! Please try again!", Toast.LENGTH_SHORT).show();
-
-
                 }
             }
         });
     }
 
-    public void updateNavHeader(){
+    public void updateNavHeader() {
 
-        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
-        String userEmail = preferences.getString("useremail","");
+        SharedPreferences preferences = getSharedPreferences("useremaildetails", MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail", "");
 
-        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
-        String userName = preferences1.getString("username","");
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails", MODE_PRIVATE);
+        String userName = preferences1.getString("username", "");
 
 
         navigationview = findViewById(R.id.navigationview);
@@ -336,7 +331,7 @@ public class AddEventActivity extends AppCompatActivity implements NavigationVie
                 //finish activity
                 activity.finishAffinity();
                 //exit app
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 //System.exit(0);
                 Toast.makeText(AddEventActivity.this, "Logout Successfully!", Toast.LENGTH_SHORT).show();

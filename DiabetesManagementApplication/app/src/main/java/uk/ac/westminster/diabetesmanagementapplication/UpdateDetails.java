@@ -28,8 +28,8 @@ public class UpdateDetails extends AppCompatActivity {
         btnUpdateDetails = findViewById(R.id.btnUpdatePassword);
 
 
-        SharedPreferences preferences = getSharedPreferences("userreset",MODE_PRIVATE);
-        String userEmail = preferences.getString("useremail","");
+        SharedPreferences preferences = getSharedPreferences("userreset", MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail", "");
 
         btnUpdateDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,24 +43,24 @@ public class UpdateDetails extends AppCompatActivity {
                 } else if (!(newPassword.equals(rePassword))) {
                     Toast.makeText(UpdateDetails.this, "Password doesn't match!", Toast.LENGTH_SHORT).show();
                 } else {
-                        Boolean result = null;
-                        try {
-                            result = db.updatePassword(userEmail, newPassword);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        if (result == true) {
+                    Boolean result = null;
+                    try {
+                        result = db.updatePassword(userEmail, newPassword);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (result == true) {
 
-                            Toast.makeText(UpdateDetails.this, "Update Password Successful!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(UpdateDetails.this, LoginActivity.class);
-                            startActivity(intent);
+                        Toast.makeText(UpdateDetails.this, "Update Password Successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(UpdateDetails.this, LoginActivity.class);
+                        startActivity(intent);
 
-                        }else{
-                            Toast.makeText(UpdateDetails.this, "Update Failed!", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        Toast.makeText(UpdateDetails.this, "Update Failed!", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
-           }
+            }
         });
     }
 }

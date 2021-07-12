@@ -88,12 +88,12 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SettingsActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tvOnceDate.setText(String.format("%04d-%02d-%02d",year,month+1,dayOfMonth));
+                        tvOnceDate.setText(String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth));
                         mYear = year;
                         mMonth = month;
                         mDay = dayOfMonth;
                     }
-                }, mYear, mMonth,mDay);
+                }, mYear, mMonth, mDay);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
@@ -105,12 +105,12 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
                 TimePickerDialog timePickerDialog = new TimePickerDialog(SettingsActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tvOnceTime.setText(String.format(("%02d:%02d"), hourOfDay,minute));
+                        tvOnceTime.setText(String.format(("%02d:%02d"), hourOfDay, minute));
                         mHour = hourOfDay;
                         mMinute = minute;
 
                     }
-                }, mHour,mMinute,true);
+                }, mHour, mMinute, true);
                 timePickerDialog.show();
             }
         });
@@ -122,12 +122,12 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
                 TimePickerDialog timePickerDialog = new TimePickerDialog(SettingsActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tvRepeatingTime.setText(String.format(("%02d:%02d"), hourOfDay,minute));
+                        tvRepeatingTime.setText(String.format(("%02d:%02d"), hourOfDay, minute));
                         mHourRepeat = hourOfDay;
                         mMinuteRepeat = minute;
 
                     }
-                }, mHourRepeat,mMinuteRepeat,true);
+                }, mHourRepeat, mMinuteRepeat, true);
                 timePickerDialog.show();
             }
         });
@@ -135,14 +135,16 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         btnSetOnceAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tvOnceDate.getText().toString().equalsIgnoreCase("")){
+                if (tvOnceDate.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(SettingsActivity.this, "Date is empty!", Toast.LENGTH_SHORT).show();
-                }else if(tvOnceTime.getText().toString().equalsIgnoreCase("")){
+                } else if (tvOnceTime.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(SettingsActivity.this, "Time is empty!", Toast.LENGTH_SHORT).show();
-                }else if(TextUtils.isEmpty(etOnceMessage.getText().toString())){
+                } else if (TextUtils.isEmpty(etOnceMessage.getText().toString())) {
                     etOnceMessage.setError("Message can't be empty!");
-                }else{
-                    alarmReceiver.setOneTimeAlarm(SettingsActivity.this, AlarmReceiver.TYPE_ONE_TIME, tvOnceDate.getText().toString(), tvOnceTime.getText().toString(), etOnceMessage.getText().toString());
+                } else {
+                    alarmReceiver.setOneTimeAlarm(SettingsActivity.this, AlarmReceiver.TYPE_ONE_TIME,
+                            tvOnceDate.getText().toString(), tvOnceTime.getText().toString(),
+                            etOnceMessage.getText().toString());
                 }
             }
         });
@@ -151,11 +153,11 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         btnSetRepeatingAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tvRepeatingTime.getText().toString().equalsIgnoreCase("")){
+                if (tvRepeatingTime.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(SettingsActivity.this, "Time is empty!", Toast.LENGTH_SHORT).show();
-                }else if(TextUtils.isEmpty(etRepeatingMessage.getText().toString())){
+                } else if (TextUtils.isEmpty(etRepeatingMessage.getText().toString())) {
                     etRepeatingMessage.setError("Message can't be empty!");
-                }else{
+                } else {
                     alarmReceiver.setRepeatingAlarm(SettingsActivity.this, AlarmReceiver.TYPE_REPEATING,
                             tvRepeatingTime.getText().toString(), etRepeatingMessage.getText().toString());
                 }
@@ -165,20 +167,19 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         btnCancelRepeatingAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(alarmReceiver.isAlarmSet(SettingsActivity.this,AlarmReceiver.TYPE_REPEATING)){
+                if (alarmReceiver.isAlarmSet(SettingsActivity.this, AlarmReceiver.TYPE_REPEATING)) {
                     tvRepeatingTime.setText("");
                     etRepeatingMessage.setText("");
-                    alarmReceiver.cancelAlarm(SettingsActivity.this,AlarmReceiver.TYPE_REPEATING);
+                    alarmReceiver.cancelAlarm(SettingsActivity.this, AlarmReceiver.TYPE_REPEATING);
                 }
             }
         });
 
 
-
         //Side Navigatorm
         navigationview.bringToFront();
         navigationview.setNavigationItemSelectedListener((menuItem) -> {
-            switch(menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.logout_opt:
                     clickLogout();
                     break;
@@ -221,13 +222,13 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         });
     }
 
-    public void updateNavHeader(){
+    public void updateNavHeader() {
 
-        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
-        String userEmail = preferences.getString("useremail","");
+        SharedPreferences preferences = getSharedPreferences("useremaildetails", MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail", "");
 
-        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
-        String userName = preferences1.getString("username","");
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails", MODE_PRIVATE);
+        String userName = preferences1.getString("username", "");
 
 
         navigationview = findViewById(R.id.navigationview);
@@ -239,6 +240,7 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         navUserName.setText(userName);
         navUserEmail.setText(userEmail);
     }
+
     public void clickMenu(View view) {
         //Open Drawer
         HomeActivity.openDrawer(drawerLayout);
@@ -266,7 +268,7 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
                 //finish activity
                 activity.finishAffinity();
                 //exit app
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 //System.exit(0);
                 Toast.makeText(SettingsActivity.this, "Logout Successfully!", Toast.LENGTH_SHORT).show();

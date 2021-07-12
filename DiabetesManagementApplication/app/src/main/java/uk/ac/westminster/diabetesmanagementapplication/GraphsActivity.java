@@ -29,6 +29,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
     String[] recordDate;
     String[] recordTime;
     int[] id;
-    int lowCount=0,normalCount=0,highCount=0,extraHighCount=0;
+    int lowCount = 0, normalCount = 0, highCount = 0, extraHighCount = 0;
 
 
     @Override
@@ -52,7 +53,6 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.activity_graphs);
         updateNavHeader();
 
-        
 
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationview = findViewById(R.id.navigationview);
@@ -75,13 +75,13 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
             while (cursor.moveToNext()) {
                 id[i] = cursor.getInt(0);
                 glucose[i] = cursor.getString(1);
-                if(Integer.parseInt(glucose[i]) <= 80){
+                if (Integer.parseInt(glucose[i]) <= 80) {
                     lowCount++;
-                }else if((Integer.parseInt(glucose[i]) > 80) && (Integer.parseInt(glucose[i]) <= 115)){
+                } else if ((Integer.parseInt(glucose[i]) > 80) && (Integer.parseInt(glucose[i]) <= 115)) {
                     normalCount++;
-                }else if((Integer.parseInt(glucose[i]) > 115) && (Integer.parseInt(glucose[i]) < 180)){
-                   highCount++;
-                }else if((Integer.parseInt(glucose[i]) >= 180)) {
+                } else if ((Integer.parseInt(glucose[i]) > 115) && (Integer.parseInt(glucose[i]) < 180)) {
+                    highCount++;
+                } else if ((Integer.parseInt(glucose[i]) >= 180)) {
                     extraHighCount++;
                 }
 
@@ -90,7 +90,6 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
                 i--;
             }
         }
-
         //PieChart
         setupPieChart();
 
@@ -141,71 +140,56 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
     }
 
     private void setupPieChart() {
-
         //Populating a list of Pie entries
         List<PieEntry> pieEntries = new ArrayList<>();
-
-        // string and integer data
         String status[] = {"Low", "Normal", "High", "Extra High"};
-
         int values[] = {lowCount, normalCount, highCount, extraHighCount};
 
-        //For every slice an entry
-        //Will pair together status & value of BG in pie entry
+        //For every slice an entry and will pair together status & value of BG in pie entry
         for (int i = 0; i < values.length; i++) {
             pieEntries.add(new PieEntry(values[i], status[i]));
-
-
         }
         //Pie data set
         PieDataSet dataSet = new PieDataSet(pieEntries, "");
-        dataSet.setColors(Color.rgb(245, 199, 0), Color.rgb(106, 150, 31), Color.rgb(255, 102, 0),
-                Color.rgb(193, 37, 82), Color.rgb(179, 100, 53));
+        dataSet.setColors(Color.rgb(245, 199, 0), Color.rgb(106, 150, 31),
+                Color.rgb(255, 102, 0), Color.rgb(193, 37, 82),
+                Color.rgb(179, 100, 53));
         Legend legend;
         Description description = new Description();
         description.setText("Your average blood glucose levels");
         description.setTextSize(15);
-        description.setPosition(2,3);
-
-        //red rgb(193, 37, 82)
-        //orange rgb(255, 102, 0)
-        //yellow rgb(245, 199, 0)
-        //green rgb(106, 150, 31)
-
+        description.setPosition(2, 3);
+        //red rgb(193, 37, 82) orange rgb(255, 102, 0) yellow rgb(245, 199, 0) green rgb(106, 150, 31)
         //Pie data Obj
         PieData data = new PieData(dataSet);
         data.setValueTextSize(15);
         data.setValueFormatter(new PercentFormatter());
-
         //Get the chart
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
         chart.setData(data);
         legend = chart.getLegend();
         legend.setEnabled(true);
-        //chart.setHoleRadius(20);
-        //legend.setTextColor(Color.RED);
         legend.setTextSize(15);
         chart.setDescription(description);
         chart.animateY(1000);
         chart.setUsePercentValues(true);
         chart.invalidate();
-
     }
+
     //Update Nav Header
-    public void updateNavHeader(){
+    public void updateNavHeader() {
 
-        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
-        String userEmail = preferences.getString("useremail","");
+        SharedPreferences preferences = getSharedPreferences("useremaildetails", MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail", "");
 
-        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
-        String userName = preferences1.getString("username","");
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails", MODE_PRIVATE);
+        String userName = preferences1.getString("username", "");
 
 
         navigationview = findViewById(R.id.navigationview);
         View headerView = navigationview.getHeaderView(0);
         TextView navUserName = headerView.findViewById(R.id.textViewUsername);
         TextView navUserEmail = headerView.findViewById(R.id.textViewEmail);
-        ImageView navUserPhoto = headerView.findViewById(R.id.imageViewUserPhoto);
         //updating textfields
         navUserName.setText(userName);
         navUserEmail.setText(userEmail);
@@ -239,7 +223,7 @@ public class GraphsActivity extends AppCompatActivity implements NavigationView.
                 //finish activity
                 activity.finishAffinity();
                 //exit app
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 //System.exit(0);
                 Toast.makeText(GraphsActivity.this, "Logout Successfully!", Toast.LENGTH_SHORT).show();

@@ -52,7 +52,7 @@ public class ResetPassword extends AppCompatActivity {
                         editor.apply();
                         startActivity(intent);
 
-                    }else{
+                    } else {
                         Toast.makeText(ResetPassword.this, "Email not found!", Toast.LENGTH_SHORT).show();
                     }
                 }

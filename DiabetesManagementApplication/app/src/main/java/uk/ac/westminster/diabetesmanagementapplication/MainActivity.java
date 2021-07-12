@@ -1,6 +1,7 @@
 package uk.ac.westminster.diabetesmanagementapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     EditText username, password, email, repassword, dateBirth;
     Button btnSignUp, btnSignIn;
     DBHelper db;
-    String encryptedPass, encryptedRepass;
     RadioButton radioButtonM, radioButtonF;
     String myGender;
 
@@ -79,26 +80,16 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "No gender selected!!", Toast.LENGTH_SHORT).show();
                 }
-
-
-                try {
-                    encryptedPass = db.encrypt(myPass, myPass);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-                    encryptedRepass = db.encrypt(myRepass, myRepass);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
                 //Checking if empty fields
-                if (myUser.equals("") || myEmail.equals("") || myPass.equals("") || myRepass.equals("") || myDateBirth.equals("") || (!radioButtonM.isChecked() && !radioButtonF.isChecked())) {
+                if (myUser.equals("") || myEmail.equals("") || myPass.equals("") || myRepass.equals("") || myDateBirth.equals("") ||
+                        (!radioButtonM.isChecked() && !radioButtonF.isChecked())) {
                     Toast.makeText(MainActivity.this, "Please fill all the required fields!", Toast.LENGTH_SHORT).show();
-                }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
-                    Toast.makeText(MainActivity.this, "Please enter a valid email address!", Toast.LENGTH_SHORT).show();
-                }else {
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+                    Toast.makeText(MainActivity.this, "Please enter a b email address!", Toast.LENGTH_SHORT).show();
+                }else if(myPass.length()< 6 || myRepass.length()<6){
+                    Toast.makeText(MainActivity.this, "Password needs to be at least 6 characters", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     if (myPass.equals(myRepass)) {
                         Boolean validUserResult = db.checkUserEmail(myEmail);
                         if (validUserResult == false) {
@@ -116,20 +107,18 @@ public class MainActivity extends AppCompatActivity {
                                 //move to login page
                                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(intent);
-
                             } else {
                                 Toast.makeText(MainActivity.this, "Registration Failed!", Toast.LENGTH_SHORT).show();
                             }
-
                         } else {
                             //user already exists
-                            Toast.makeText(MainActivity.this, "User already exists! \n Please Sign in with a valid email", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "User already exists! \n Please Sign up with a valid email",
+                                    Toast.LENGTH_SHORT).show();
                         }
-
                     } else {
+                        //Password not matching to confirm password
                         Toast.makeText(MainActivity.this, "Password doesn't match!", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
         });

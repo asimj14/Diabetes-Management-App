@@ -44,6 +44,7 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -51,7 +52,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 
-public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
     NavigationView navigationview;
     BottomNavigationView bottomNavigationView;
@@ -65,8 +66,8 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     String[] recordTime;
     int[] id;
     int mYear, mMonth, mDay, mHour, mMinute;
-    String todayDate="";
-    String todayTime="";
+    String todayDate = "";
+    String todayTime = "";
 
 
     @Override
@@ -102,7 +103,6 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
             }
             return false;
         });
-
 
 
         //Bottom Navigator
@@ -143,8 +143,8 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     //Display all BG level records
     private void displayAllData() {
 
-        SharedPreferences preferences = getSharedPreferences("useriddetails",MODE_PRIVATE);
-        Integer userid = preferences.getInt("userid",0);
+        SharedPreferences preferences = getSharedPreferences("useriddetails", MODE_PRIVATE);
+        Integer userid = preferences.getInt("userid", 0);
         String userID = Integer.toString(userid);
 
         sqLiteDatabase = db.getWritableDatabase();
@@ -155,25 +155,22 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
             glucose = new String[cursor.getCount()];
             recordDate = new String[cursor.getCount()];
             recordTime = new String[cursor.getCount()];
-            int i = cursor.getCount()-1;
+            int i = cursor.getCount() - 1;
             while (cursor.moveToNext()) {
                 id[i] = cursor.getInt(0);
-                glucose[i]= cursor.getString(1);
+                glucose[i] = cursor.getString(1);
                 recordDate[i] = cursor.getString(2);
                 recordTime[i] = cursor.getString(3);
                 i--;
             }
+            //Setting the adapter and the listView
             Custom adapter = new Custom();
             listView.setAdapter(adapter);
 
-        }else{
+        } else {
             Toast.makeText(this, "No data found!!", Toast.LENGTH_SHORT).show();
-
         }
     }
-
-
-
 
     private class Custom extends BaseAdapter {
 
@@ -196,61 +193,60 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView textView;
-            ImageView edit,delete;
+            ImageView edit, delete;
 
             convertView = LayoutInflater.from(HomeActivity.this).inflate(R.layout.singledata, parent, false);
             textView = convertView.findViewById(R.id.txt_name);
 
             edit = convertView.findViewById(R.id.edit_data);
             delete = convertView.findViewById(R.id.delete_data);
-            textView.setText("BG: "+glucose[position]+" mg/dL"+"\n Date: "+recordDate[position]+"\n Time: "+recordTime[position]);
+            textView.setText("BG: " + glucose[position] + " mg/dL" + "\n Date: " + recordDate[position] + "\n Time: " + recordTime[position]);
 
-            if((Integer.parseInt(glucose[position]) <= 80)){
+            if ((Integer.parseInt(glucose[position]) <= 80)) {
                 convertView.setBackgroundColor(Color.rgb(245, 199, 0));
                 textView.setTextColor(Color.WHITE);
 
-            }else if((Integer.parseInt(glucose[position]) > 80) && (Integer.parseInt(glucose[position]) <= 115)){
+            } else if ((Integer.parseInt(glucose[position]) > 80) && (Integer.parseInt(glucose[position]) <= 115)) {
                 convertView.setBackgroundColor(Color.rgb(106, 150, 31));
                 textView.setTextColor(Color.WHITE);
 
-            }else if((Integer.parseInt(glucose[position]) > 115) && (Integer.parseInt(glucose[position]) < 180)){
+            } else if ((Integer.parseInt(glucose[position]) > 115) && (Integer.parseInt(glucose[position]) < 180)) {
                 convertView.setBackgroundColor(Color.rgb(255, 102, 0));
                 textView.setTextColor(Color.WHITE);
 
-            }else if((Integer.parseInt(glucose[position]) >= 180)){
+            } else if ((Integer.parseInt(glucose[position]) >= 180)) {
                 convertView.setBackgroundColor(Color.rgb(193, 37, 82));
 
                 textView.setTextColor(Color.WHITE);
 
             }
 
-
+            //Edit Icon click event
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id",id[position]);
-                    bundle.putString("glucoseValue",glucose[position]);
-                    bundle.putString("recordDate",recordDate[position]);
-                    bundle.putString("recordTime",recordTime[position]);
+                    bundle.putInt("id", id[position]);
+                    bundle.putString("glucoseValue", glucose[position]);
+                    bundle.putString("recordDate", recordDate[position]);
+                    bundle.putString("recordTime", recordTime[position]);
 
 
-                    Intent intent = new Intent(HomeActivity.this,AddEventActivity.class);
-                    intent.putExtra("userdata",bundle);
+                    Intent intent = new Intent(HomeActivity.this, AddEventActivity.class);
+                    intent.putExtra("userdata", bundle);
                     startActivity(intent);
                 }
             });
-
+            //Delete Icon click event
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     sqLiteDatabase = db.getReadableDatabase();
-                    long recd = sqLiteDatabase.delete("glucose","id="+id[position],null);
-                    if(recd!=-1){
+                    long recd = sqLiteDatabase.delete("glucose", "id=" + id[position], null);
+                    if (recd != -1) {
                         Toast.makeText(HomeActivity.this, "Reading deleted successfully!", Toast.LENGTH_SHORT).show();
                         displayAllData();
-                    }
-                    else{
+                    } else {
                         displayAllData();
                     }
                 }
@@ -266,7 +262,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
 
     }
 
-    public void clickMenu(View view){
+    public void clickMenu(View view) {
         //Open Drawer
         openDrawer(drawerLayout);
 
@@ -278,7 +274,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         //drawerLayout.setScrimColor(Color.BLUE);
     }
 
-    public void clickLogo(View view){
+    public void clickLogo(View view) {
         //Close Drawer
         closeDrawer(drawerLayout);
 
@@ -286,20 +282,20 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
 
     public static void closeDrawer(DrawerLayout drawerLayout) {
         //Close Drawer Layout
-       if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-           //when drawer is open then close it
-           drawerLayout.closeDrawer(GravityCompat.START);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            //when drawer is open then close it
+            drawerLayout.closeDrawer(GravityCompat.START);
 
-       }
+        }
     }
 
-    public void updateNavHeader(){
+    public void updateNavHeader() {
 
-        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
-        String userEmail = preferences.getString("useremail","");
+        SharedPreferences preferences = getSharedPreferences("useremaildetails", MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail", "");
 
-        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
-        String userName = preferences1.getString("username","");
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails", MODE_PRIVATE);
+        String userName = preferences1.getString("username", "");
 
 
         navigationview = findViewById(R.id.navigationview);
@@ -315,11 +311,10 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     }
 
 
-    public void clickLogout(){
+    public void clickLogout() {
         //logout
         logout(this);
     }
-
     private void logout(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Logout");
@@ -329,15 +324,16 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);//so that only our app can read this preference
+                //so that only our app can read this preference
+                SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("remember","false");
+                editor.putString("remember", "false");
                 editor.apply();
 
                 //finish activity
                 activity.finishAffinity();
                 //exit app
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 //System.exit(0);
                 Toast.makeText(HomeActivity.this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
@@ -355,7 +351,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         builder.show();
     }
 
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         //close drawer
         closeDrawer(drawerLayout);
@@ -363,7 +359,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
 
     //handling onclicks
     @Override
-    public boolean onNavigationItemSelected(@NonNull  MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return true;
     }
 
@@ -371,11 +367,11 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
 
     public void createPdf() throws FileNotFoundException {
 
-        SharedPreferences preferences = getSharedPreferences("useremaildetails",MODE_PRIVATE);
-        String userEmail = preferences.getString("useremail","");
+        SharedPreferences preferences = getSharedPreferences("useremaildetails", MODE_PRIVATE);
+        String userEmail = preferences.getString("useremail", "");
 
-        SharedPreferences preferences1 = getSharedPreferences("usernamedetails",MODE_PRIVATE);
-        String userName = preferences1.getString("username","");
+        SharedPreferences preferences1 = getSharedPreferences("usernamedetails", MODE_PRIVATE);
+        String userName = preferences1.getString("username", "");
 
         //Today Date
         Calendar calendar = Calendar.getInstance();
@@ -385,10 +381,8 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         mHour = calendar.get(Calendar.HOUR_OF_DAY);
         mMinute = calendar.get(Calendar.MINUTE);
 
-
-        todayDate = (String.format("%04d-%02d-%02d",mYear,mMonth+1,mDay));
-        todayTime = (String.format(("%02d:%02d"), mHour,mMinute));
-
+        todayDate = (String.format("%04d-%02d-%02d", mYear, mMonth + 1, mDay));
+        todayTime = (String.format(("%02d:%02d"), mHour, mMinute));
 
         String pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         File file = new File(pdfPath, "myBGReadings.pdf");
@@ -397,43 +391,36 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         PdfWriter writer = new PdfWriter(file);
         PdfDocument pdfDocument = new PdfDocument(writer);
         Document document = new Document(pdfDocument);
-        document.setMargins(0,0,0,0);
-
-
-        //Image1
-        Drawable d1 = getResources().getDrawable(R.drawable.background);
-        Bitmap bitmap1 = ((BitmapDrawable)d1).getBitmap();
-        ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-        bitmap1.compress(Bitmap.CompressFormat.PNG,100,stream1);
-        byte[] bitmapData1 = stream1.toByteArray();
-        ImageData imageData1 = ImageDataFactory.create(bitmapData1);
-        Image image1 = new Image(imageData1);
+        document.setMargins(0, 0, 0, 0);
 
         //Image2
         Drawable d2 = getResources().getDrawable(R.drawable.logo_small);
-        Bitmap bitmap2 = ((BitmapDrawable)d2).getBitmap();
+        Bitmap bitmap2 = ((BitmapDrawable) d2).getBitmap();
         ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
-        bitmap2.compress(Bitmap.CompressFormat.PNG,100,stream2);
+        bitmap2.compress(Bitmap.CompressFormat.PNG, 100, stream2);
         byte[] bitmapData2 = stream2.toByteArray();
         ImageData imageData2 = ImageDataFactory.create(bitmapData2);
         Image image2 = new Image(imageData2);
         image2.setWidth(150);
         image2.setHeight(100);
-        image2.setMargins(20,30,20,30);
+        image2.setMargins(20, 30, 20, 30);
         image2.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
-        document.add(image1.setFixedPosition(0,0));
         document.add(image2);
 
-        float columnWidth[] = {120,220,120,100};
+        float columnWidth[] = {120, 220, 120, 100};
         Table userTable = new Table(columnWidth);
-        userTable.addCell(new Cell().add(new Paragraph("Patient Name").setFontSize(14).setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        userTable.addCell(new Cell().add(new Paragraph("Patient Name").setFontSize(14).
+                setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
         userTable.addCell(new Cell().add(new Paragraph(userName).setFontSize(14)));
-        userTable.addCell(new Cell().add(new Paragraph("Patient Email").setFontSize(14).setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        userTable.addCell(new Cell().add(new Paragraph("Patient Email").setFontSize(14).
+                setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
         userTable.addCell(new Cell().add(new Paragraph(userEmail).setFontSize(14)));
-        userTable.addCell(new Cell().add(new Paragraph("Date").setFontSize(14).setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        userTable.addCell(new Cell().add(new Paragraph("Date").setFontSize(14).
+                setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
         userTable.addCell(new Cell().add(new Paragraph(todayDate).setFontSize(14)));
-        userTable.addCell(new Cell().add(new Paragraph("Time").setFontSize(14).setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
+        userTable.addCell(new Cell().add(new Paragraph("Time").setFontSize(14).
+                setFontColor(ColorConstants.BLACK).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
         userTable.addCell(new Cell().add(new Paragraph(todayTime).setFontSize(14)));
         userTable.setHorizontalAlignment(HorizontalAlignment.CENTER);
         userTable.setMarginTop(10);
@@ -442,32 +429,23 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         userTable.setMarginRight(20);
         document.add(userTable);
 
-
-
-        String [] tableHeader = {"BG Level Reading","Date","Time"};
-        float columnWidth1[] = {200f,50f,100f};
+        String[] tableHeader = {"BG Level Reading", "Date", "Time"};
+        float columnWidth1[] = {200f, 50f, 100f};
         Table table = new Table(columnWidth1);
         table.addCell(new Cell().add(new Paragraph(tableHeader[0]).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
         table.addCell(new Cell().add(new Paragraph(tableHeader[1]).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
         table.addCell(new Cell().add(new Paragraph(tableHeader[2]).setBackgroundColor(ColorConstants.LIGHT_GRAY)));
 
-        for(int i=0;i<glucose.length;i++){
-
-                table.addCell(new Cell().add(new Paragraph(glucose[i])));
-                table.addCell(new Cell().add(new Paragraph(recordDate[i])));
-                table.addCell(new Cell().add(new Paragraph(recordTime[i])));
-
-            
+        for (int i = 0; i < glucose.length; i++) {
+            table.addCell(new Cell().add(new Paragraph(glucose[i])));
+            table.addCell(new Cell().add(new Paragraph(recordDate[i])));
+            table.addCell(new Cell().add(new Paragraph(recordTime[i])));
         }
-
         table.setHorizontalAlignment(HorizontalAlignment.CENTER);
         document.add(table);
 
         document.close();
         Toast.makeText(this, "Pdf Created & Saved!!", Toast.LENGTH_SHORT).show();
         System.out.println("Pdf created");
-
-
     }
-
 }
